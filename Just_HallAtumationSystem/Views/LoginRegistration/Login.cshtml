@@ -1,0 +1,70 @@
+﻿@model MyApp.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+    <h1 class="text-center py-5"> Hall AUTOMATION SYSTEM</h1>
+
+<section class="mt-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 offset-3">
+                <div class="card card-header text-dark ">
+                    <div class="card-body px-3">
+                        <h2 class="display-5 text-center">
+                            <strong> Login</strong>
+                        </h2>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+
+                                    <div class="col-md-10 offset-1">
+                                        @Html.LabelFor(model => model.UserName)
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="col-md-10 offset-1">
+                                        @Html.LabelFor(model => model.Password)
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="offset-1 col-md-10">
+                                        <input type="submit" value="Login" class="btn btn-success btn-block" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-md-5 text-center ml-3">
+                                        @Html.ActionLink("Back to SignUp", "Registration")
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

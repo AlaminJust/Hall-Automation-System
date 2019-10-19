@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea8fdf6ed39146428236b50f4c90d189" Name="Diagram1">
+        <EntityTypeShape EntityType="JustHallAtumationModel.Address" Width="1.5" PointX="7.625" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Communication" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Department" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.DepartmentInfo" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.District" Width="1.5" PointX="9.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Meal" Width="1.5" PointX="5.125" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.MealCost" Width="1.5" PointX="2.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.NoticeBoard" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Preference" Width="1.5" PointX="5.125" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Room" Width="1.5" PointX="2" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Student" Width="1.5" PointX="6.875" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.User" Width="1.5" PointX="4" PointY="7.625" IsExpanded="true" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Address_District" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Address_District1" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Address_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_DepartmentInfo_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_DepartmentInfo_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Meal_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Preference_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Student_Room" ManuallyRouted="false" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Student_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.UsersRole" Width="1.5" PointX="3.125" PointY="10.25" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_UsersRole_Users" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Account" Width="1.5" PointX="6.25" PointY="3" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Account_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

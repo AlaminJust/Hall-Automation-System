@@ -1,0 +1,43 @@
+﻿@model MyApp.Models.DepartMentWithDeptName
+
+@{
+    ViewBag.Title = "ShowDepartmentInfo";
+}
+
+<h2>ShowDepartmentInfo</h2>
+
+<div>
+    <h4>DepartMentWithDeptName</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Session)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Session)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cgpa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cgpa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

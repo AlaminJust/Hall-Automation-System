@@ -1,0 +1,46 @@
+﻿@model MyApp.Models.AddressModel
+
+@{
+    ViewBag.Title = "ShowAddress";
+}
+
+<h2>ShowAddress</h2>
+
+<div>
+    <h4>AddressModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dd> District </dd>
+        <dt>
+            @Html.DisplayFor(model => model.P_district.DistrictName)
+        </dt>
+        <dd> PostOffice </dd>
+        <dt>
+            @Html.DisplayFor(model => model.address.P_PostOffice)
+        </dt>
+        <dd> Village Name </dd>
+        <dt>
+            @Html.DisplayFor(model => model.address.P_VillageName)
+        </dt>
+
+        <dd>  District </dd>
+        <dt>
+            @Html.DisplayFor(model => model.T_District.DistrictName)
+        </dt>
+        <dd>  Post Office </dd>
+        <dt>
+            @Html.DisplayFor(model => model.address.T_PostOffice)
+        </dt>
+        <dd>  Village Name </dd>
+        <dt>
+            @Html.DisplayFor(model => model.address.T_VillageName)
+        </dt>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Update Address", "UpdateAddressInfo", "Update", new { id = Model.address.StudentId  }, htmlAttributes: null)
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

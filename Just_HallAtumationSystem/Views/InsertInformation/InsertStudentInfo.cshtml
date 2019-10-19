@@ -1,0 +1,100 @@
+﻿@model MyApp.Models.StudentInfoModel
+
+@{
+    ViewBag.Title = "InsertStudentInfo";
+}
+
+
+<section class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 col-sm-10 offset-lg-3 offset-md-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="display-5 text-center">
+                            <strong> Student</strong>
+                        </h2>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                              
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                  
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.StudentName)
+                                        @Html.EditorFor(model => model.StudentName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.StudentName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                               
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.RoomId)
+                                        @Html.DropDownListFor(model => model.RoomId, new SelectList(Model.room, "RoomId", "RoomNumber"), "Select", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                   
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.FatherName)
+                                        @Html.EditorFor(model => model.FatherName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FatherName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                   
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.MotherName)
+                                        @Html.EditorFor(model => model.MotherName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MotherName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                  
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.MobileNumber)
+                                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    @Html.LabelFor(model => model.PaymentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.PaymentId, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PaymentId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        <input type="submit" value="Submit" class="btn btn-success btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

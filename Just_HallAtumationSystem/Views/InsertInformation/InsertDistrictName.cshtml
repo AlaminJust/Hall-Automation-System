@@ -1,0 +1,58 @@
+﻿@model MyApp.Models.District
+
+@{
+    ViewBag.Title = "InsertDistrictName";
+}
+
+<section class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-lg-6 col-sm-10 offset-lg-3 offset-md-1">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="display-5 text-center">
+                            <strong> District Name</strong>
+                        </h2>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                <h4>District</h4>
+                                <hr />
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        @Html.LabelFor(model => model.DistrictName)
+                                        @Html.EditorFor(model => model.DistrictName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DistrictName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                        <input type="submit" value="Submit" class="btn btn-success btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

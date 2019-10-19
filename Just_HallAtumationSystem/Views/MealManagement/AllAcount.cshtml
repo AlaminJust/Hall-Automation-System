@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MyApp.Models.AllAccountsModel>
+
+@{
+    ViewBag.Title = "AllAcount";
+}
+
+<h2 class="text-center mt-5">All Account</h2>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>Student Name : </th>
+        <th>Room Number</th>
+        <th>Add Balance</th>
+        <th>Show Balance</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.student.StudentName</td>
+        <td>@item.room.RoomNumber</td>
+        <td>
+            @Html.ActionLink("Add Balance", "AddBalance", new {  id=item.student.UserId  }) 
+        </td>
+        <td>
+            @Html.ActionLink("Show Balance", "ShowBalance", new { id = item.student.UserId })
+        </td>
+    </tr>
+}
+
+</table>

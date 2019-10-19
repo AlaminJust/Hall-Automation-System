@@ -1,0 +1,76 @@
+﻿@model MyApp.Models.Student
+
+@{
+    ViewBag.Title = "GetStudentData";
+}
+
+<h2>GetStudentData</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.RoomId)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.RoomId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FatherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FatherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MotherName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MotherName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNumber)
+        </dd>
+
+        <dt hidden>
+            @Html.DisplayNameFor(model => model.PaymentId)
+        </dt>
+
+        <dd hidden>
+            @Html.DisplayFor(model => model.PaymentId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Update", "UpdateStudentInfo", "Update", new {  id = Model.StudentId }, htmlAttributes: null)
+    @Html.ActionLink("Adress", "ShowAddress", new { id = Model.StudentId }) |
+    @Html.ActionLink("Room", "ShowRoom", new { id = Model.StudentId }) |
+    @Html.ActionLink("Deparment Information", "ShowDepartmentInfo", new { id = Model.StudentId }) |
+</p>
