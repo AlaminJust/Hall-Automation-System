@@ -50,7 +50,7 @@ namespace Just_HallAtumationSystem.Controllers
                     FormsAuthentication.SetAuthCookie(model.UserName, false);
                     ViewBag.Success = "Success";
                     Session["UserName"] = model.UserName;
-                    return RedirectToAction("Contact", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else // login Failed
                 {

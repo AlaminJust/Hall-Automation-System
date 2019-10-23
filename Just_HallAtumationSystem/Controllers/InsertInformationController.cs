@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MyApp.Models;
 using MyApp.Db.DbOperation;
 using MyApp.Db;
+using System.IO;
 
 namespace Just_HallAtumationSystem.Controllers
 {
@@ -170,5 +171,54 @@ namespace Just_HallAtumationSystem.Controllers
             return RedirectToAction("Contact","Home");
         }
 
+        // To Upload Image for User
+
+        public ActionResult UploadImage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(ImageUploadModel img, HttpPostedFileBase file)
+
+        {
+            string UserName = (string)Session["UserName"];
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Content/Images"),
+                                       Path.GetFileName(file.FileName));
+                    file.SaveAs(path);
+                    img.ImagePath = file.FileName;
+                }
+
+                using(var context = new JustHallAtumationEntities())
+                {
+                    var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                    var image = context.UserImages.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                    if(image == null)
+                    {
+                        UserImage userImage = new UserImage
+                        {
+                            UserId = user.UserId,
+                            Image = img.ImagePath
+
+                        };
+                        context.UserImages.Add(userImage);
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        image.Image = img.ImagePath;
+                        context.SaveChanges();
+                    }
+                    
+                }
+                
+                return RedirectToAction("Index","Home");
+            }
+            return View(img);
+        }
     }
 }

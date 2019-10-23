@@ -13,7 +13,7 @@ namespace Just_HallAtumationSystem.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Student")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

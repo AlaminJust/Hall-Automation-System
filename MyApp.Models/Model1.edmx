@@ -114,6 +114,14 @@
           <Property Name="MobileNumber" Type="nchar" MaxLength="50" />
           <Property Name="PaymentId" Type="int" />
         </EntityType>
+        <EntityType Name="UserImage">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Image" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -251,6 +259,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserImage_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserImage" Type="Self.UserImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserImage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsersRole_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="UsersRole" Type="Self.UsersRole" Multiplicity="*" />
@@ -276,6 +296,7 @@
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersRole" EntityType="Self.UsersRole" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account_Users" Association="Self.FK_Account_Users">
@@ -317,6 +338,10 @@
           <AssociationSet Name="FK_Student_Users" Association="Self.FK_Student_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserImage_Users" Association="Self.FK_UserImage_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserImage" EntitySet="UserImage" />
           </AssociationSet>
           <AssociationSet Name="FK_UsersRole_Users" Association="Self.FK_UsersRole_Users">
             <End Role="Users" EntitySet="Users" />
@@ -457,6 +482,7 @@
           <NavigationProperty Name="Students" Relationship="Self.FK_Student_Users" FromRole="Users" ToRole="Student" />
           <NavigationProperty Name="UsersRoles" Relationship="JustHallAtumationModel.FK_UsersRole_Users" FromRole="User" ToRole="UsersRole" />
           <NavigationProperty Name="Account" Relationship="JustHallAtumationModel.FK_Account_Users" FromRole="User" ToRole="Account" />
+          <NavigationProperty Name="UserImages" Relationship="JustHallAtumationModel.FK_UserImage_Users" FromRole="User" ToRole="UserImage" />
         </EntityType>
         <Association Name="FK_Address_District">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
@@ -625,6 +651,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
+          <EntitySet Name="UserImages" EntityType="JustHallAtumationModel.UserImage" />
+          <AssociationSet Name="FK_UserImage_Users" Association="JustHallAtumationModel.FK_UserImage_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserImage" EntitySet="UserImages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UsersRole">
           <Key>
@@ -663,6 +694,27 @@
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Account">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserImage">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="JustHallAtumationModel.FK_UserImage_Users" FromRole="UserImage" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserImage_Users">
+          <End Type="JustHallAtumationModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustHallAtumationModel.UserImage" Role="UserImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserImage">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -810,6 +862,15 @@
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserImages">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.UserImage">
+              <MappingFragment StoreEntitySet="UserImage">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

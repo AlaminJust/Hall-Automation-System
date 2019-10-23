@@ -41,51 +41,63 @@
                     <li class="nav-item">@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })</li>
 
 
-                    @*Dropdoun menu*@
-
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Information<b class="caret"></b></a>
-                        <ul class="dropdown-menu py-1 px-1" style="background-color:black;text-decoration:none">
-
-                            <li class="nav-item">@Html.ActionLink("Address", "Addresses", "Information", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Department", "Departments", "Information", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("District", "Districts", "Information", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Room", "Rooms", "Information", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Student", "Student", "Information", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("StudentDeptInfo", "StudentDepartmentInformation", "Information", null, new { @class = "nav-link" })</li>
-                        </ul>
-                    </li>
-
-                    @*Update information*@
-
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Update<b class="caret"></b></a>
-                        <ul class="dropdown-menu py-1 px-1" style="background-color:black">
-                            <li class="nav-item">@Html.ActionLink("Student", "StudentDetails", "Update", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("Address", "AddresDetails", "Update", null, new { @class = "nav-link" })</li>
-
-                        </ul>
-                    </li>
-
-
-                    @*About Meal*@
-
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">MealSystem<b class="caret"></b></a>
-                        <ul class="dropdown-menu py-1 px-1" style="background-color:black">
-                            <li class="nav-item">@Html.ActionLink("Acount", "Account", "MealManagement", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("AddMeal", "AddMeal", "MealManagement", null, new { @class = "nav-link" })</li>
-                            <li class="nav-item">@Html.ActionLink("ShowMeal", "AllMealDetails", "MealManagement", null, new { @class = "nav-link" })</li>
-
-                        </ul>
-                    </li>
 
 
 
                     @if (User.Identity.IsAuthenticated)
                     {
+                        @*Dropdoun menu*@
+
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Information<b class="caret"></b></a>
+                            <ul class="dropdown-menu py-1 px-1" style="background-color:black;text-decoration:none">
+
+                                <li class="nav-item">@Html.ActionLink("Student", "InsertStudentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Department", "InsertDepartmentName", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("DepartmentInfo", "InsertUserDepartmentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("District", "InsertDistrictName", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Room", "InsertRoomInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                <li class="nav-item">@Html.ActionLink("Address", "InsertAddress", "InsertInformation", null, new { @class = "nav-link" })</li>
+                            </ul>
+                        </li>
+
+                        @*Update information*@
+
+                        @*<li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Update<b class="caret"></b></a>
+                <ul class="dropdown-menu py-1 px-1" style="background-color:black">
+                    <li class="nav-item">@Html.ActionLink("Address", "UpdateAddressInfo", "Update", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Student", "UpdateAddressInfo", "Update", null, new { @class = "nav-link" })</li>
+
+                </ul>
+            </li>*@
+                        //StudentList
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("StudentList", "StudentList", "ShowDetails", null, new { @class = "nav-link" })</li>
+
+                        }
+
+                        if (User.IsInRole("Admin"))
+                        {
+                            @*About Meal*@
+                            <li class="dropdown nav-item">
+                                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">MealSystem<b class="caret"></b></a>
+                                <ul class="dropdown-menu py-1 px-1" style="background-color:black">
+                                   
+                                    <li class="nav-item">@Html.ActionLink("AllAccount", "AllAcount", "MealManagement", null, new { @class = "nav-link" })</li>
+
+                                </ul>
+                            </li>
+
+                        }
+
+
                         <li class="nav-item">@Html.ActionLink(@User.Identity.Name, "Profile", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item">@Html.ActionLink("Logout", "Logout", "LoginRegistration", null, new { @class = "nav-link" })</li>
+
+
+
                     }
                     else
                     {

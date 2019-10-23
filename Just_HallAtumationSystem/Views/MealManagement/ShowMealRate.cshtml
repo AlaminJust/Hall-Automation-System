@@ -1,0 +1,26 @@
+﻿@model MyApp.Models.MealCost
+
+@{
+    ViewBag.Title = "ShowMealRate";
+}
+
+<h2>ShowMealRate</h2>
+
+<div>
+    <h4>MealCost</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MealCost1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MealCost1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MealCostId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

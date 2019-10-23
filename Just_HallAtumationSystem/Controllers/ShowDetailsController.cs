@@ -10,15 +10,18 @@ namespace Just_HallAtumationSystem.Controllers
 {
     public class ShowDetailsController : Controller
     {
+       
         // GET: ShowDetails
         SearchOperation searchOperation = new SearchOperation();
         // To get Specific User Information by UserName
+        [Authorize(Roles ="Admin")]
         public ActionResult GetStudentData(string UserName) 
         {
             var Student = searchOperation.GetStudentInformation(UserName);
             return View(Student);
         }
         // To Show Student List
+        [Authorize(Roles = "Admin")]
         public ActionResult StudentList()
         {
             var studentList = searchOperation.GetStudentList();

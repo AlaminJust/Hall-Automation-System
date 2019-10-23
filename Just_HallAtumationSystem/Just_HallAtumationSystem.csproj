@@ -235,9 +235,16 @@
     <Content Include="Views\MealManagement\AddBalance.cshtml" />
     <Content Include="Views\MealManagement\ShowBalance.cshtml" />
     <Content Include="Views\Filter\Index.cshtml" />
+    <Content Include="Views\MealManagement\AddMeal.cshtml" />
+    <Content Include="Views\MealManagement\AddMealRate.cshtml" />
+    <Content Include="Views\MealManagement\ShowMealRate.cshtml" />
+    <Content Include="Views\MealManagement\ShowTodayAllMeal.cshtml" />
+    <Content Include="Views\MealManagement\ShowPreviousDayMeal.cshtml" />
+    <Content Include="Views\InsertInformation\UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

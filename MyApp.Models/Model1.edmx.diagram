@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="JustHallAtumationModel.DepartmentInfo" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.District" Width="1.5" PointX="9.5" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Meal" Width="1.5" PointX="5.125" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.MealCost" Width="1.5" PointX="2.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.MealCost" Width="1.5" PointX="2.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.NoticeBoard" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Preference" Width="1.5" PointX="5.125" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Room" Width="1.5" PointX="2" PointY="5.875" IsExpanded="true" />
@@ -26,10 +26,12 @@
         <AssociationConnector Association="JustHallAtumationModel.FK_Preference_Student" ManuallyRouted="false" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Student_Room" ManuallyRouted="false" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Student_Users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.UsersRole" Width="1.5" PointX="3.125" PointY="10.25" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.UsersRole" Width="1.5" PointX="1.375" PointY="11.125" />
         <AssociationConnector Association="JustHallAtumationModel.FK_UsersRole_Users" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Account" Width="1.5" PointX="6.25" PointY="3" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Account_Users" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.UserImage" Width="1.5" PointX="6.25" PointY="16" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_UserImage_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

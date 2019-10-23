@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MyApp.Models.Meal>
+
+@{
+    ViewBag.Title = "ShowTodayAllMeal";
+}
+
+<h2>ShowTodayAllMeal</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomNo)
+        </th>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lunch)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dinnar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.StudentName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.RoomNo)
+    </td>
+    <td hidden>
+        @Html.DisplayFor(modelItem => item.StudentId)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lunch)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Dinnar)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Date)
+    </td>
+    <td hidden>
+        @Html.DisplayFor(modelItem => item.Time)
+    </td>
+</tr>
+}
+
+</table>

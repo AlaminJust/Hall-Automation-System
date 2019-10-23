@@ -39,5 +39,6 @@ namespace MyApp.Models
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UsersRole> UsersRoles { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<UserImage> UserImages { get; set; }
     }
 }

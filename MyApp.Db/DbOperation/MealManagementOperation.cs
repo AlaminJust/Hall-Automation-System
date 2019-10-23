@@ -53,5 +53,81 @@ namespace MyApp.Db.DbOperation
                 return result;
             }
         }
+
+        // To Add Meal for Specific User
+        public int AddMeal(Meal model , string UserName)
+        {
+            using(var context = new JustHallAtumationEntities())
+            {
+
+                TimeSpan now = DateTime.Now.TimeOfDay;
+                TimeSpan start = new TimeSpan(00, 0, 0);
+                TimeSpan End = new TimeSpan(24, 00, 0);
+                if (!(now >= start && now <= End))
+                {
+                    return -1;
+                }
+
+                var mealRate = context.MealCosts.FirstOrDefault();
+                int MealRate = mealRate.MealCost1;
+                int UserBalance = 0;
+                var User = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                var UserAccount = context.Accounts.Where(x => x.UserId == User.UserId).FirstOrDefault();
+                UserBalance = (int)UserAccount.Balance;
+
+                int TotalMealCost = (model.Dinnar * MealRate) + (model.Lunch * MealRate);
+                if(TotalMealCost > UserBalance) // User has not Sufficient Balance
+                {
+                    return -2; 
+                }
+                else
+                {
+                    UserAccount.Balance = UserAccount.Balance - TotalMealCost;
+                    context.SaveChanges();
+                }
+                var student = context.Students.Where(x => x.UserId == User.UserId).FirstOrDefault();
+                var room = context.Rooms.Where(x => x.RoomId == student.RoomId).FirstOrDefault();
+
+                Meal meal = new Meal()
+                {
+                    Dinnar = model.Dinnar,
+                    Lunch = model.Lunch,
+                    StudentId = student.StudentId,
+                    StudentName = student.StudentName,
+                    RoomNo = room.RoomNumber,
+                    Time = DateTime.Now.TimeOfDay,
+                    Date = DateTime.Today.Date
+                };
+
+                context.Meals.Add(meal);
+                context.SaveChanges();
+                return meal.MealId;
+            }
+        }
+
+        // To Update Meal Rate
+        public int AddMealRate(MealCost model)
+        {
+            using(var context = new JustHallAtumationEntities())
+            {
+                var result = context.MealCosts.FirstOrDefault();
+                if(result == null) // Meal Cost Not Found Add Meal Cost
+                {
+                    MealCost mealCost = new MealCost()
+                    {
+                        MealCost1 = model.MealCost1
+                    };
+                    context.MealCosts.Add(mealCost);
+                    context.SaveChanges();
+                    return mealCost.MealCostId;
+                }
+                else // OtherWise Update MealCost
+                {
+                    result.MealCost1 = model.MealCost1;
+                    context.SaveChanges();
+                    return result.MealCostId;
+                }
+            }
+        }
     }
 }
