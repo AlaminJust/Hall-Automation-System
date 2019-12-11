@@ -12,12 +12,16 @@ namespace MyApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserImage
+    public partial class RegistrationForm
     {
-        public int ImageId { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public string Image { get; set; }
-    
-        public virtual User User { get; set; }
+        public int RegistrationId { get; set; }
+        public string UserName { get; set; }
+        public string StudentName { get; set; }
+        public string DeptName { get; set; }
+        public string RollNumber { get; set; }
+        public string Session { get; set; }
+        public Nullable<int> Password { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> IsVerified { get; set; }
     }
 }

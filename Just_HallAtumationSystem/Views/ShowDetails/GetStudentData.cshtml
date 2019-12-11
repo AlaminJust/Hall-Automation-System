@@ -1,4 +1,4 @@
-﻿@model MyApp.Models.Student
+﻿@model IEnumerable<MyApp.Models.UserProfiles>
 
 @{
     ViewBag.Title = "GetStudentData";
@@ -6,71 +6,107 @@
 
 <h2>GetStudentData</h2>
 
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt hidden>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd hidden>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt hidden>
-            @Html.DisplayNameFor(model => model.RoomId)
-        </dt>
-
-        <dd hidden>
-            @Html.DisplayFor(model => model.RoomId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StudentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StudentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FatherName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FatherName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MotherName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MotherName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MobileNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MobileNumber)
-        </dd>
-
-        <dt hidden>
-            @Html.DisplayNameFor(model => model.PaymentId)
-        </dt>
-
-        <dd hidden>
-            @Html.DisplayFor(model => model.PaymentId)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Update", "UpdateStudentInfo", "Update", new {  id = Model.StudentId }, htmlAttributes: null)
-    @Html.ActionLink("Adress", "ShowAddress", new { id = Model.StudentId }) |
-    @Html.ActionLink("Room", "ShowRoom", new { id = Model.StudentId }) |
-    @Html.ActionLink("Deparment Information", "ShowDepartmentInfo", new { id = Model.StudentId }) |
+    @Html.ActionLink("Create New", "Create")
 </p>
+
+
+
+@*<section id="tabs" class="project-tab">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Project Tab 1</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Project Tab 2</a>
+                            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Project Tab 3</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                            @foreach (var item in Model)
+                            {
+                                <div style="border:1px solid; margin:4px; padding:5px; height:400px; width:358px">
+                                    <div style="border:1px solid; margin:4px; height:200px; width:200px">
+                                        <p><img style="height:190px; width:190px" src="~/Content/images/@item.userImage.Image" /></p>
+                                    </div>
+                                    <p> @item.student.StudentName</p>
+                                    <p>Father  Name : @item.student.FatherName</p>
+                                    <p>Mother  Name : @item.student.MotherName</p>
+                                    <p>Phone Number : @item.student.MobileNumber</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <p>hello</p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>*@
+
+
+<section id="tabs" class="project-tab">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true"> Basic info</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Address</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Academic info</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        @foreach (var item in Model)
+                        {
+                            <div style="border:1px solid; margin:4px; padding:5px; height:400px; width:358px">
+                                <div style="border:1px solid; margin:4px; height:200px; width:200px">
+                                    <p><img style="height:190px; width:190px" src="~/Content/images/@item.userImage.Image" /></p>
+                                </div>
+                                <p> @item.student.StudentName</p>
+                                <p>Father  Name : @item.student.FatherName</p>
+                                <p>Mother  Name : @item.student.MotherName</p>
+                                <p>Phone Number : @item.student.MobileNumber</p>
+                            </div>
+                        }
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+                        @foreach (var item in Model)
+                        {
+                            <div style="border:1px solid; margin:4px; padding:5px; height:400px; width:358px">                              
+                                <p>Phone Number : @item.district.DistrictName</p>
+                                <p>Father  Name : @item.address.P_VillageName</p>
+                                <p>Mother  Name : @item.address.P_PostOffice</p>
+
+                            </div>
+                        }
+
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+                        @foreach (var item in Model)
+                        {
+                            <div style="border:1px solid; margin:4px; padding:5px; height:400px; width:358px">
+                                <p>Phone Number : @item.department.DeptName</p>
+                                <p>Father  Name : @item.departmentInfo.Session</p>
+                                @*<p>Mother  Name : @item.registrationForm.RollNumber</p>*@
+                                <p>Mother  Name : @item.departmentInfo.Cgpa</p>
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

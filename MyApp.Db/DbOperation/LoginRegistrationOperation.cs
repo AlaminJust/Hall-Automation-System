@@ -23,21 +23,41 @@ namespace MyApp.Db.DbOperation
             return (int)ans;
         }
 
-        public int Registrataion(RegistrationModel model) // To registration in the site
+        // For Registration Form to verified the user
+        public int RegistrationFormVerified(RegistrationFormModel model)
         {
-            using (var context = new JustHallAtumationEntities())
+            using(var context = new JustHallAtumationEntities())
             {
-                string UserName = model.UserName.Replace(" ", "");
-                var user1 = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                var user1 = context.Users.Where(x => x.UserName == model.UserName.Replace(" ","")).FirstOrDefault();
                 if (user1 != null)
                 {
                     return -1; // User Name Already Exist
                 }
+                RegistrationForm registrationForm = new RegistrationForm
+                {
+                    UserName = model.UserName,
+                    StudentName = model.StudentName,
+                    DeptName = model.DeptName,
+                    Email = model.Email,
+                    Session = model.Session,
+                    IsVerified = 0,
+                    Password = HashFunction(model.Password.Replace(" ", "")),
+                    RollNumber = model.RollNumber
+                };
+                context.RegistrationForms.Add(registrationForm);
+                context.SaveChanges();
+                return registrationForm.RegistrationId;
+            }
+        }
+        public int Registrataion(RegistrationForm model) // To registration in the site
+        {
+            using (var context = new JustHallAtumationEntities())
+            {
                 User user = new User()
                 {
                     UserName = model.UserName,
-                    UserEmail = model.UserEmail,
-                    Password = HashFunction(model.Password.Replace(" ", ""))
+                    UserEmail = model.Email,
+                    Password = model.Password
                 };
                 context.Users.Add(user);
                 context.SaveChanges();

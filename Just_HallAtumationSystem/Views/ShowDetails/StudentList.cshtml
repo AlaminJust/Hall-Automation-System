@@ -25,9 +25,6 @@
 <table class="table table-bordered">
     <tr>
         <th>
-            User Name
-        </th>
-        <th>
             Student Name
         </th>
         <th>
@@ -55,11 +52,7 @@
         <tr>
 
             <td>
-                @Html.ActionLink(item.user.UserName, "GetStudentData", "ShowDetails", new { UserName = item.user.UserName }, htmlAttributes: null)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.student.StudentName)
+                @Html.ActionLink(item.student.StudentName, "GetStudentData", "ShowDetails", new { UserName = item.user.UserName }, htmlAttributes: null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.department.DeptName)

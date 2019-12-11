@@ -28,10 +28,11 @@
         <AssociationConnector Association="JustHallAtumationModel.FK_Student_Users" ManuallyRouted="false" />
         <EntityTypeShape EntityType="JustHallAtumationModel.UsersRole" Width="1.5" PointX="1.375" PointY="11.125" />
         <AssociationConnector Association="JustHallAtumationModel.FK_UsersRole_Users" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.Account" Width="1.5" PointX="6.25" PointY="3" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Account" Width="1.5" PointX="5" PointY="3.625" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Account_Users" />
         <EntityTypeShape EntityType="JustHallAtumationModel.UserImage" Width="1.5" PointX="6.25" PointY="16" />
         <AssociationConnector Association="JustHallAtumationModel.FK_UserImage_Users" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.RegistrationForm" Width="1.5" PointX="6.625" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

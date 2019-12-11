@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,17 @@ namespace Just_HallAtumationSystem.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        public ActionResult Index()
+
+        JustHallAtumationEntities context = new JustHallAtumationEntities();
+        public ActionResult Index(string searching)
+        {
+            return View(context.Students.Where(x => x.StudentName.Contains(searching) || (x.Room.RoomNumber.ToString().Contains(searching)) || x.User.UserName.Contains(searching) || searching == null).ToList());
+        }
+
+
+
+
+        public ActionResult search()
         {
             return View();
         }

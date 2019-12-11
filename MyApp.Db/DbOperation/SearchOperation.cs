@@ -11,13 +11,33 @@ namespace MyApp.Db.DbOperation
     {
         // TO get Student table data by UserName
         InsertInfoOperation insertInfoOperation = new InsertInfoOperation();
-        public Student GetStudentInformation(string UserName)
+        public List<UserProfiles> GetStudentInformation(string UserName)
         {
             using(var context = new JustHallAtumationEntities())
             {
-                int StudentId = insertInfoOperation.GetStudentId(UserName);
-                var student = context.Students.Where(x => x.StudentId == StudentId).FirstOrDefault();
-                return student;
+                var profiles = (from u in context.Users
+                                join s in context.Students on u.UserId equals s.UserId
+                                join r in context.Rooms on s.RoomId equals r.RoomId
+                                join depInfo in context.DepartmentInfoes on s.StudentId equals depInfo.StudentId
+                                join d in context.Departments on depInfo.DepartmentId equals d.DeptId
+                                join add in context.Addresses on s.StudentId equals add.StudentId
+                                join dis in context.Districts on add.P_DistrictId equals dis.DistrictId
+                                join img in context.UserImages on u.UserId equals img.UserId
+                                where (u.UserName == UserName)
+                                select new UserProfiles
+                                {
+                                    student = s,
+                                    userImage = img,
+                                    room = r,
+                                    departmentInfo = depInfo,
+                                    district = dis,
+                                    department = d,
+                                    address = add
+                                }).ToList();
+
+                if(profiles != null)
+                    profiles[0].registrationForm = context.RegistrationForms.Where(x => x.UserName == UserName).FirstOrDefault();
+                return profiles;
             }
         }
 

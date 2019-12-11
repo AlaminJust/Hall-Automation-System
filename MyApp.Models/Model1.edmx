@@ -92,6 +92,20 @@
           <Property Name="Dinner" Type="int" />
           <Property Name="Lunch" Type="int" />
         </EntityType>
+        <EntityType Name="RegistrationForm">
+          <Key>
+            <PropertyRef Name="RegistrationId" />
+          </Key>
+          <Property Name="RegistrationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nchar" MaxLength="50" />
+          <Property Name="StudentName" Type="nchar" MaxLength="50" />
+          <Property Name="DeptName" Type="nchar" MaxLength="50" />
+          <Property Name="RollNumber" Type="nchar" MaxLength="50" />
+          <Property Name="Session" Type="nchar" MaxLength="50" />
+          <Property Name="Password" Type="int" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+          <Property Name="IsVerified" Type="int" />
+        </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="RoomId" />
@@ -294,6 +308,7 @@
           <EntitySet Name="MealCost" EntityType="Self.MealCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoticeBoard" EntityType="Self.NoticeBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegistrationForm" EntityType="Self.RegistrationForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
@@ -656,6 +671,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserImage" EntitySet="UserImages" />
           </AssociationSet>
+          <EntitySet Name="RegistrationForms" EntityType="JustHallAtumationModel.RegistrationForm" />
         </EntityContainer>
         <EntityType Name="UsersRole">
           <Key>
@@ -719,6 +735,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RegistrationForm">
+          <Key>
+            <PropertyRef Name="RegistrationId" />
+          </Key>
+          <Property Name="RegistrationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DeptName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="RollNumber" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Session" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Password" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="IsVerified" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -871,6 +901,21 @@
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationForms">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.RegistrationForm">
+              <MappingFragment StoreEntitySet="RegistrationForm">
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Session" ColumnName="Session" />
+                <ScalarProperty Name="RollNumber" ColumnName="RollNumber" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RegistrationId" ColumnName="RegistrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -13,28 +13,84 @@ namespace Just_HallAtumationSystem.Controllers
     {
         // GET: LoginRegistration
         LoginRegistrationOperation loginRegistrationOperation = new LoginRegistrationOperation();
-        public ActionResult Registration()
+
+        // For Verified the User
+        public ActionResult RegistrationForm()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult Registration(RegistrationModel model)
+            
+        public ActionResult RegistrationForm(RegistrationFormModel model)
         {
             if (ModelState.IsValid)
             {
-                int id = loginRegistrationOperation.Registrataion(model);
-                if (id > 0) // Registration Successfull
+                int id = loginRegistrationOperation.RegistrationFormVerified(model);
+                if(id > 0) // Filled The Registration Form 
                 {
-                    ViewBag.Success = "Congratulation! Registration Succesfull";
                     ModelState.Clear();
+                    ViewBag.Success = "Registration Completed Wait For accepted By admin";
                 }
-                else // Registration Faliled
+                else
                 {
-                    ViewBag.Success = "User Name Already Exist";
+                    ViewBag.Success = "Failed!";
                 }
             }
             return View();
         }
+
+        // To Show Registration Form For Admin
+        public ActionResult ShowRegistrationForm()
+        {
+            using(var context = new JustHallAtumationEntities())
+            {
+                var result = context.RegistrationForms.ToList().OrderBy(x=>x.IsVerified);
+                return View(result);
+            }
+        }
+
+        public ActionResult ActivateTheUser(int? Id)
+        {
+            using(var context = new JustHallAtumationEntities())
+            {
+                var result = context.RegistrationForms.Where(x => x.RegistrationId == (int)Id).FirstOrDefault();
+                int id = loginRegistrationOperation.Registrataion(result);
+                if(id > 0)
+                {
+                    ViewBag.Success = "Successfully Activated The User!";
+                    result.IsVerified = 1;
+                    context.SaveChanges();
+                }
+                else
+                {
+                    ViewBag.Success = "Failed to Verified The user!";
+                }
+                return RedirectToAction("ShowRegistrationForm");
+            }
+        }
+
+        //public ActionResult Registration()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult Registration(RegistrationModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        int id = loginRegistrationOperation.Registrataion(model);
+        //        if (id > 0) // Registration Successfull
+        //        {
+        //            ViewBag.Success = "Congratulation! Registration Succesfull";
+        //            ModelState.Clear();
+        //        }
+        //        else // Registration Faliled
+        //        {
+        //            ViewBag.Success = "User Name Already Exist";
+        //        }
+        //    }
+        //    return View();
+        //}
         public ActionResult Login()
         {
             return View();

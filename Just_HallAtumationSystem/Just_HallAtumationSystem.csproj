@@ -224,7 +224,6 @@
     <Content Include="Views\InsertInformation\InsertUserDepartmentInfo.cshtml" />
     <Content Include="Views\InsertInformation\InsertDistrictName.cshtml" />
     <Content Include="Views\InsertInformation\InsertAddress.cshtml" />
-    <Content Include="Views\ShowDetails\GetStudentData.cshtml" />
     <Content Include="Views\ShowDetails\StudentList.cshtml" />
     <Content Include="Views\ShowDetails\ShowAddress.cshtml" />
     <Content Include="Views\ShowDetails\ShowRoom.cshtml" />
@@ -241,6 +240,9 @@
     <Content Include="Views\MealManagement\ShowTodayAllMeal.cshtml" />
     <Content Include="Views\MealManagement\ShowPreviousDayMeal.cshtml" />
     <Content Include="Views\InsertInformation\UploadImage.cshtml" />
+    <Content Include="Views\LoginRegistration\RegistrationForm.cshtml" />
+    <Content Include="Views\LoginRegistration\ShowRegistrationForm.cshtml" />
+    <Content Include="Views\ShowDetails\GetStudentData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
