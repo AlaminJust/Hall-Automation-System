@@ -112,6 +112,10 @@
     <Compile Include="Room.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Search.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SearchingModel.cs" />
     <Compile Include="Student.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

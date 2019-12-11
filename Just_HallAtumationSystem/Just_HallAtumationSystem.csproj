@@ -243,6 +243,7 @@
     <Content Include="Views\LoginRegistration\RegistrationForm.cshtml" />
     <Content Include="Views\LoginRegistration\ShowRegistrationForm.cshtml" />
     <Content Include="Views\ShowDetails\GetStudentData.cshtml" />
+    <Content Include="Views\Filter\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

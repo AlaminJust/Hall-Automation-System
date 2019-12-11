@@ -115,6 +115,13 @@
           <Property Name="TotalSeat" Type="int" />
           <Property Name="EmptySeat" Type="int" />
         </EntityType>
+        <EntityType Name="Search">
+          <Key>
+            <PropertyRef Name="SearchId" />
+          </Key>
+          <Property Name="SearchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SearchName" Type="nchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="StudentId" />
@@ -310,6 +317,7 @@
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RegistrationForm" EntityType="Self.RegistrationForm" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -672,6 +680,7 @@
             <End Role="UserImage" EntitySet="UserImages" />
           </AssociationSet>
           <EntitySet Name="RegistrationForms" EntityType="JustHallAtumationModel.RegistrationForm" />
+          <EntitySet Name="Searches" EntityType="JustHallAtumationModel.Search" />
         </EntityContainer>
         <EntityType Name="UsersRole">
           <Key>
@@ -748,6 +757,13 @@
           <Property Name="Password" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="IsVerified" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Search">
+          <Key>
+            <PropertyRef Name="SearchId" />
+          </Key>
+          <Property Name="SearchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SearchName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -916,6 +932,14 @@
                 <ScalarProperty Name="StudentName" ColumnName="StudentName" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="RegistrationId" ColumnName="RegistrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Searches">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.Search">
+              <MappingFragment StoreEntitySet="Search">
+                <ScalarProperty Name="SearchName" ColumnName="SearchName" />
+                <ScalarProperty Name="SearchId" ColumnName="SearchId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
