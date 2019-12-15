@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\FilterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsertInformationController.cs" />
@@ -244,6 +245,11 @@
     <Content Include="Views\LoginRegistration\ShowRegistrationForm.cshtml" />
     <Content Include="Views\ShowDetails\GetStudentData.cshtml" />
     <Content Include="Views\Filter\Search.cshtml" />
+    <Content Include="Views\File\FileUpload.cshtml" />
+    <Content Include="Views\File\FileDetails.cshtml" />
+    <Content Include="Views\ShowDetails\profile.cshtml" />
+    <Content Include="Views\MealManagement\UpdateMeal.cshtml" />
+    <Content Include="Views\Update\UpdateDepartmentInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

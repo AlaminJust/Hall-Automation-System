@@ -57,6 +57,28 @@ namespace MyApp.Db.DbOperation
             }
         }
 
+        public int DepartmentInfoUpdate(DepartMentWithDeptName model)
+        {
+            using (var context = new JustHallAtumationEntities())
+            {
+                var departmentInfo = context.DepartmentInfoes.Where(x => x.StudentId == (int)model.StudentId).FirstOrDefault();
+                if (departmentInfo != null)
+                {
+                    departmentInfo.DepartmentId = model.DepartmentId;
+                    departmentInfo.Cgpa = model.Cgpa;
+                    departmentInfo.Session = model.Session;
+                }
+                else
+                {
+                    return -1;
+                }
+                context.SaveChanges();
+                return departmentInfo.StudentId;
+            }
+        }
+
+
+
 
     }
 }

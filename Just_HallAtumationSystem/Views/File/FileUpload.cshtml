@@ -1,0 +1,48 @@
+﻿@model MyApp.Models.EmpModel
+
+@{
+    ViewBag.Title = "FileUpload";
+}
+
+<div class="table table-bordered mt-5 p-3">
+    @using (Html.BeginForm("FileUpload", "File", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+
+                <label>Title</label>
+                <input type="text" class="form-control" id="FileTile" name="FileTile" />
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.files, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
+                    @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 text-success">
+                    @ViewBag.FileStatus
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    <div class="col-md-8">
+                        @Html.Action("FileDetails", "File")
+                        @Html.Action("index", "Home")
+                    </div>
+                </div>*@
+        </div>
+    }
+</div>

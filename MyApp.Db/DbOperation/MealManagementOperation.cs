@@ -78,7 +78,7 @@ namespace MyApp.Db.DbOperation
                 int TotalMealCost = (model.Dinnar * MealRate) + (model.Lunch * MealRate);
                 if(TotalMealCost > UserBalance) // User has not Sufficient Balance
                 {
-                    return -2; 
+                    return -2;
                 }
                 else
                 {
@@ -104,12 +104,53 @@ namespace MyApp.Db.DbOperation
                 return meal.MealId;
             }
         }
+        // To Update Meal for individual student
+        public int Update(Meal Model , string UserName)
+        {
+            using(var context = new JustHallAtumationEntities())
+            {
+                TimeSpan now = DateTime.Now.TimeOfDay;
+                TimeSpan start = new TimeSpan(00, 0, 0);
+                TimeSpan End = new TimeSpan(24, 00, 0);
+                if (!(now >= start && now <= End))
+                {
+                    return -1; // Time is over!
+                }
+                var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                var meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault(); // Find Meal from database
+                if(meal == null) 
+                {
+                    return -2; /// First Add meal
+                }
+                int mealRate = context.MealCosts.FirstOrDefault().MealCost1; // To back the money 
+                int backMoney = (meal.Dinnar + meal.Lunch) * mealRate; // Previous cost
+                int currentCost = (Model.Lunch + Model.Dinnar) * mealRate; // Current Cost
+                int UserBalance = 0;
+                var User = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                var UserAccount = context.Accounts.Where(x => x.UserId == User.UserId).FirstOrDefault();
+                UserBalance = (int)UserAccount.Balance;
+
+                if ((backMoney + UserBalance) < currentCost)
+                {
+                    return -3; // Insufficient balance
+                }
+                UserAccount.Balance = (UserBalance + backMoney - currentCost);
+                meal.Dinnar = Model.Dinnar;
+                meal.Lunch = Model.Lunch;
+                meal.Time = DateTime.Now.TimeOfDay;
+                meal.Date = DateTime.Today.Date;
+                context.SaveChanges();
+                return meal.MealId;
+            }
+        }
 
         // To Update Meal Rate
         public int AddMealRate(MealCost model)
         {
             using(var context = new JustHallAtumationEntities())
             {
+
                 var result = context.MealCosts.FirstOrDefault();
                 if(result == null) // Meal Cost Not Found Add Meal Cost
                 {

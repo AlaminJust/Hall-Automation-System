@@ -48,8 +48,13 @@ namespace Just_HallAtumationSystem.Controllers
             return View(result);
         }
        
+        // To show Own Profile after login
 
-
-
+        public ActionResult profile()
+        {
+            string UserName = User.Identity.Name;
+            var Student = searchOperation.GetStudentInformation(UserName);
+            return View(Student);
+        }
     }
 }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MyApp.Models.File>
+
+@{
+    ViewBag.Title = "FileDetails";
+}
+<h2 class="mt-4 text-center" style="color:blue">Notice From Hall Provost</h2>
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table mt-5 ">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </th>
+
+        <th class="col-md-2"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Datetime)
+            </td>
+
+            <td>
+                @Html.ActionLink("Download", "DownLoadFile", new { id = item.FileId })
+            </td>
+        </tr>
+    }
+
+</table>

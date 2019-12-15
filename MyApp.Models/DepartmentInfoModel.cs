@@ -20,5 +20,8 @@ namespace MyApp.Models
     public class DepartMentWithDeptName : DepartmentInfoModel
     {
         public string DepartmentName { get; set; }
+        public int StudentId { get; set; }
+        
     }
+   
 }

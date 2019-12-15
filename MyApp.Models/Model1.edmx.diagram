@@ -34,6 +34,7 @@
         <AssociationConnector Association="JustHallAtumationModel.FK_UserImage_Users" />
         <EntityTypeShape EntityType="JustHallAtumationModel.RegistrationForm" Width="1.5" PointX="6.625" PointY="0.625" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Search" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.File" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

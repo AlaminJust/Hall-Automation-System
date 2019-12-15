@@ -56,6 +56,16 @@
           <Property Name="DistrictId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DistrictName" Type="nchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nchar" MaxLength="50" />
+          <Property Name="FileContent" Type="varbinary(max)" />
+          <Property Name="FileTitle" Type="nchar" MaxLength="100" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Meal">
           <Key>
             <PropertyRef Name="MealId" />
@@ -311,6 +321,7 @@
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentInfo" EntityType="Self.DepartmentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealCost" EntityType="Self.MealCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoticeBoard" EntityType="Self.NoticeBoard" Schema="dbo" store:Type="Tables" />
@@ -681,6 +692,7 @@
           </AssociationSet>
           <EntitySet Name="RegistrationForms" EntityType="JustHallAtumationModel.RegistrationForm" />
           <EntitySet Name="Searches" EntityType="JustHallAtumationModel.Search" />
+          <EntitySet Name="Files" EntityType="JustHallAtumationModel.File" />
         </EntityContainer>
         <EntityType Name="UsersRole">
           <Key>
@@ -764,6 +776,16 @@
           </Key>
           <Property Name="SearchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SearchName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="FileId" />
+          </Key>
+          <Property Name="FileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileTitle" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -940,6 +962,17 @@
               <MappingFragment StoreEntitySet="Search">
                 <ScalarProperty Name="SearchName" ColumnName="SearchName" />
                 <ScalarProperty Name="SearchId" ColumnName="SearchId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,78 +4,78 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
 
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="mt-4">
 
 
-        <div class="form-group">
-
-            <<div class="col-md-10 offset-1  offset-lg-2">
-                @Html.LabelFor(model => model.SearchId)
-                @Html.DropDownListFor(model => model.SearchId, new SelectList(Model.search, "SearchId", "SearchName"), "Select Search Type", new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-
-            <div class="col-md-10 offset-1  offset-lg-2">
-                @Html.LabelFor(model => model.searching)
-                @Html.EditorFor(model => model.searching, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.searching, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="offset-1 col-md-10  offset-lg-2">
-                <input type="submit" value="Submit" class="btn btn-secondary btn-block" />
-            </div>
-        </div>
-    </div>
-}
-
-
-<table class="table table-striped border">
-    <thead>
-        <tr>
-            <th>StudentName</th>
-            <th>UserName</th>
-            @*<th>DepartMent</th>*@
-            <th>Room No</th>
-        </tr>
-    </thead>
-<tbody>
-    @if (Model.searchings.Count() == 0)
-    {
-        <tr>
-            <td colspan="3" style="color:red">
-                No match searching data
-            </td>
-        </tr>
-    }
-    else
-    {
-        foreach (var item in Model.searchings)
+        @using (Html.BeginForm())
         {
-            <tr>
+            @Html.AntiForgeryToken()
 
-                <td>@item.student.StudentName</td>
-                <td>@item.user.UserName</td>
-                @*<td>@item.DepartmentInfo.Department.DeptName.</td>*@
-                <td>@item.room.RoomNumber</td>
+            <div class="form-horizontal">
 
-            </tr>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+
+                    
+                        @*@Html.LabelFor(model => model.SearchId, "Select search type")*@
+                        @Html.DropDownListFor(model => model.SearchId, new SelectList(Model.search, "SearchId", "SearchName"), "Select Search Type", new { @class = "form-control" })
+                    
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.searching)*@
+
+                    <div class="input-group">
+
+                        @Html.EditorFor(model => model.searching, new { htmlAttributes = new { @class = "form-control" } })
+                        <span class="input-group-btn" style="margin-left:2px">
+                            <input type="submit" class="btn btn-secondary" value="Search">
+                        </span>
+                        @*@Html.ValidationMessageFor(model => model.searching, "", new { @class = "text-danger" })*@
+                    </div>
+                </div>
+            </div>
         }
-    }
-</tbody>
 
-</table>
+
+        <table class="table table-striped border">
+            <thead>
+                <tr>
+                    <th>StudentName</th>
+                    <th>UserName</th>
+                    @*<th>DepartMent</th>*@
+                    <th>Room No</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.searchings.Count() == 0)
+                {
+                    <tr>
+                        <td colspan="3" style="color:red">
+                            No match searching data
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model.searchings)
+                    {
+                        <tr>
+
+                            <td>@item.student.StudentName</td>
+                            <td>@item.user.UserName</td>
+                            @*<td>@item.DepartmentInfo.Department.DeptName.</td>*@
+                            <td>@item.room.RoomNumber</td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+
+    </div>
 

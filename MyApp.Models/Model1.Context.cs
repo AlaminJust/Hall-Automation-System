@@ -42,5 +42,6 @@ namespace MyApp.Models
         public virtual DbSet<UserImage> UserImages { get; set; }
         public virtual DbSet<RegistrationForm> RegistrationForms { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
+        public virtual DbSet<File> Files { get; set; }
     }
 }

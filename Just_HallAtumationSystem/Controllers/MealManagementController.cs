@@ -61,10 +61,54 @@ namespace Just_HallAtumationSystem.Controllers
         [HttpPost]
         public ActionResult AddMeal(Meal model)
         {
-            string UserName = (string)Session["UserName"];
+            string UserName = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 int id = mealManagementOperation.AddMeal(model, UserName);
+            }
+            return View();
+        }
+
+        // To Update Meal
+        public ActionResult UpdateMeal()
+        {
+            string UserName = User.Identity.Name;
+            Meal meal = new Meal();
+            using(var context = new JustHallAtumationEntities())
+            {
+                var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault();
+            }
+            
+            return View(meal);
+        }
+        [HttpPost]
+        public ActionResult UpdateMeal(Meal Model)
+        {
+            if (ModelState.IsValid)
+            {
+                int id = mealManagementOperation.Update(Model, User.Identity.Name);
+                if(id == -1)
+                {
+                    ViewBag.Success = "Time is Over!";
+                }
+                else if(id == -2)
+                {
+                    ViewBag.Success = "You have no Meal Yet!";
+                }
+                else if(id == -3)
+                {
+                    ViewBag.Success = "Insufficient Balance!";
+                }
+                else if(id > 0)
+                {
+                    ViewBag.Success = "Succesfully Updated!";
+                }
+                else
+                {
+                    ViewBag.Success = "Somethings Went Wrong!";
+                }
             }
             return View();
         }

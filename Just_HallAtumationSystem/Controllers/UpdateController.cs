@@ -13,7 +13,7 @@ namespace Just_HallAtumationSystem.Controllers
     {
         // GET: Update
         UpdateOperation updateOperation = new UpdateOperation();
-        public ActionResult UpdateStudentInfo(int? Id)
+        public ActionResult UpdateStudentInfo(int? Id) // Student Id
         {
             if(Id == null)
             {
@@ -23,6 +23,11 @@ namespace Just_HallAtumationSystem.Controllers
             studentUpdateModel.StudentId = (int)Id;
             using(var context = new JustHallAtumationEntities())
             {
+                var student = context.Students.Where(x => x.StudentId == (int)Id).FirstOrDefault();
+                studentUpdateModel.StudentName = student.StudentName;
+                studentUpdateModel.FatherName = student.FatherName;
+                studentUpdateModel.MotherName = student.MotherName;
+                studentUpdateModel.MobileNumber = student.MobileNumber;
                 studentUpdateModel.room = context.Rooms.ToList();
             }
             return View(studentUpdateModel);
@@ -48,12 +53,17 @@ namespace Just_HallAtumationSystem.Controllers
 
         //Update Address Information
 
-        public ActionResult UpdateAddressInfo(int? id)
+        public ActionResult UpdateAddressInfo(int? id) // Student Id
         {
             AddressInfoModel addressInfoModel = new AddressInfoModel();
             addressInfoModel.StudentId = (int)id;
             using(var context=new JustHallAtumationEntities())
             {
+                var address = context.Addresses.Where(x => x.StudentId == (int)id).FirstOrDefault();
+                addressInfoModel.P_PostOffice = address.P_PostOffice;
+                addressInfoModel.P_VillageName = address.P_VillageName;
+                addressInfoModel.T_PostOffice = address.T_PostOffice;
+                addressInfoModel.T_VillageName = address.T_VillageName;
                 addressInfoModel.districts = context.Districts.ToList();
             }
 
@@ -77,6 +87,38 @@ namespace Just_HallAtumationSystem.Controllers
             }
             return RedirectToAction("StudentList", "ShowDetails");
 
+        }
+        public ActionResult UpdateDepartmentInfo(int? id)
+        {
+            DepartMentWithDeptName departmentInfoModel = new DepartMentWithDeptName();
+            departmentInfoModel.StudentId = (int)id;
+            using (var context=new JustHallAtumationEntities())
+            {
+                var result = context.DepartmentInfoes.Where(x => x.StudentId == (int)id).FirstOrDefault();
+                departmentInfoModel.Cgpa = result.Cgpa;
+                departmentInfoModel.Session = result.Session;
+                departmentInfoModel.department = context.Departments.ToList();
+            }
+            return View(departmentInfoModel);
+
+        }
+        [HttpPost]
+        public ActionResult UpdateDepartmentInfo(DepartMentWithDeptName model)
+        {
+            if(ModelState.IsValid)
+            {
+                int id = updateOperation.DepartmentInfoUpdate(model);
+                if(id > 0)
+                {
+                    ModelState.Clear();
+                    ViewBag.Success = "Successfully Updated!";
+                }
+                else
+                {
+                    ViewBag.Success = "Failed!";
+                }
+            }
+            return RedirectToAction("StudentList", "ShowDetails");
         }
     }
 }
