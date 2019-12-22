@@ -18,6 +18,6 @@ namespace MyApp.Models
         public string FileName { get; set; }
         public byte[] FileContent { get; set; }
         public string FileTitle { get; set; }
-        public Nullable<System.DateTime> Datetime { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     }
 }

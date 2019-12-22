@@ -64,7 +64,7 @@
           <Property Name="FileName" Type="nchar" MaxLength="50" />
           <Property Name="FileContent" Type="varbinary(max)" />
           <Property Name="FileTitle" Type="nchar" MaxLength="100" />
-          <Property Name="Datetime" Type="datetime" />
+          <Property Name="Date" Type="date" />
         </EntityType>
         <EntityType Name="Meal">
           <Key>
@@ -115,6 +115,7 @@
           <Property Name="Password" Type="int" />
           <Property Name="Email" Type="nchar" MaxLength="50" />
           <Property Name="IsVerified" Type="int" />
+          <Property Name="Verification" Type="nchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Room">
           <Key>
@@ -769,6 +770,7 @@
           <Property Name="Password" Type="Int32" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="IsVerified" Type="Int32" />
+          <Property Name="Verification" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Search">
           <Key>
@@ -785,7 +787,7 @@
           <Property Name="FileName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="FileTitle" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="Datetime" Type="DateTime" Precision="3" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -945,6 +947,7 @@
           <EntitySetMapping Name="RegistrationForms">
             <EntityTypeMapping TypeName="JustHallAtumationModel.RegistrationForm">
               <MappingFragment StoreEntitySet="RegistrationForm">
+                <ScalarProperty Name="Verification" ColumnName="Verification" />
                 <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -968,7 +971,7 @@
           <EntitySetMapping Name="Files">
             <EntityTypeMapping TypeName="JustHallAtumationModel.File">
               <MappingFragment StoreEntitySet="Files">
-                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
                 <ScalarProperty Name="FileContent" ColumnName="FileContent" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />

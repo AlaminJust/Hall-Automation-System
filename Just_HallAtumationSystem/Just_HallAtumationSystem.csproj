@@ -150,6 +150,10 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\image1.jpg" />
+    <Content Include="Content\Images\image2.jpg" />
+    <Content Include="Content\Images\image3.jpg" />
+    <Content Include="Content\Images\Part 37 - Search record in Asp.net mvc using Jquery and Partial View.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -207,7 +211,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -250,10 +254,15 @@
     <Content Include="Views\ShowDetails\profile.cshtml" />
     <Content Include="Views\MealManagement\UpdateMeal.cshtml" />
     <Content Include="Views\Update\UpdateDepartmentInfo.cshtml" />
+    <Content Include="Views\Home\SendEmail.cshtml" />
+    <Content Include="Views\LoginRegistration\ForgetPassword.cshtml" />
+    <Content Include="Views\LoginRegistration\ChangePassword.cshtml" />
+    <Content Include="Views\LoginRegistration\EmailVerification.cshtml" />
+    <Content Include="Views\LoginRegistration\UpdateRegistraionForm.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

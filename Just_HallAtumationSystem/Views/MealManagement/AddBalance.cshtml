@@ -1,16 +1,22 @@
 ﻿@model MyApp.Models.Account
 
-@{
-    ViewBag.Title = "AddBalance";
+@*@{
+    ViewBag.Title = "Add Balance";
+}*@
+
+@if (ViewBag.Success != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Success");
+            };
+    </script>
 }
 
-<h2>AddBalance</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Account</h4>
         <hr />
@@ -39,9 +45,9 @@
     </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

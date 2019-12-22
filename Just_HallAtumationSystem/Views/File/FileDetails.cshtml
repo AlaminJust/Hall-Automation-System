@@ -14,7 +14,7 @@
             @Html.DisplayNameFor(model => model.FileTitle)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Datetime)
+            @Html.DisplayNameFor(model => model.Date)
         </th>
 
         <th class="col-md-2"></th>
@@ -27,11 +27,10 @@
                 @Html.DisplayFor(modelItem => item.FileTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Datetime)
+                @Html.DisplayFor(modelItem => item.Date)
             </td>
-
             <td>
-                @Html.ActionLink("Download", "DownLoadFile", new { id = item.FileId })
+                @Html.ActionLink("Download", "DownLoadFile", new { id = item.FileId} )
             </td>
         </tr>
     }

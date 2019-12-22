@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MyApp.Db.DbOperation;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using MyApp.Db.DbOperation;
-using MyApp.Models;
 
 namespace Just_HallAtumationSystem.Controllers
 {
@@ -17,44 +14,121 @@ namespace Just_HallAtumationSystem.Controllers
         [Authorize(Roles ="Admin")]
         public ActionResult GetStudentData(string UserName) 
         {
-            var Student = searchOperation.GetStudentInformation(UserName);
-            return View(Student);
+            try
+            {
+                var Student = searchOperation.GetStudentInformation(UserName);
+                return View(Student);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+           
         }
         // To Show Student List
         [Authorize(Roles = "Admin")]
-        public ActionResult StudentList()
+        public ActionResult StudentList(int ?Id)
         {
-            var studentList = searchOperation.GetStudentList();
-            return View(studentList);
+            try
+            {
+                if (Id == null || Id == 0)
+                {
+                    var studentLists = searchOperation.GetStudentList().OrderBy(x => x.student.StudentName);
+                    return View(studentLists);
+                }
+                else if(Id == 1)
+                {
+                    var studentLists = searchOperation.GetStudentList().OrderBy(x => x.department.DeptName);
+                    return View(studentLists);
+                }
+                else if(Id == 2)
+                {
+                    var studentLists = searchOperation.GetStudentList().OrderBy(x => x.departmentInfo.Session);
+                    return View(studentLists);
+                }
+                else if(Id == 3)
+                {
+                    var studentLists = searchOperation.GetStudentList().OrderBy(x => x.room.RoomNumber);
+                    return View(studentLists);
+                }
+                else if(Id == 4)
+                {
+                    var studentLists = searchOperation.GetStudentList().OrderBy(x => x.HallEntryDate);
+                    return View(studentLists);
+                }
+                return View(searchOperation.GetStudentList());
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         // To Show Address Info
         public ActionResult ShowAddress(int? Id) // Student Id
         {
-            var result = searchOperation.GetAdressOfUser((int)Id);
-            return View(result);
+            try
+            {
+                var result = searchOperation.GetAdressOfUser((int)Id);
+                return View(result);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         // To Show Room Information
         public ActionResult ShowRoom(int? Id) // Student Id
         {
-            var result = searchOperation.GetRoomOfUser((int)Id); 
-            return View(result);
+            try
+            {
+                var result = searchOperation.GetRoomOfUser((int)Id);
+                return View(result);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         // To Show Department Information
         public ActionResult ShowDepartmentInfo(int? Id) // Student Id
         {
-            var result = searchOperation.GetDepartmentInfoOfUser((int)Id);
-            return View(result);
+            try
+            {
+                var result = searchOperation.GetDepartmentInfoOfUser((int)Id);
+                return View(result);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
        
         // To show Own Profile after login
 
         public ActionResult profile()
         {
-            string UserName = User.Identity.Name;
-            var Student = searchOperation.GetStudentInformation(UserName);
-            return View(Student);
+            try
+            {
+                string UserName = User.Identity.Name;
+                var Student = searchOperation.GetStudentInformation(UserName);
+                return View(Student);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
     }
 }

@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "UpdateDepartmentInfo";
 }
+@if (ViewBag.Success != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Success");
+            };
+    </script>
+}
 
 <h2>UpdateDepartmentInfo</h2>
 

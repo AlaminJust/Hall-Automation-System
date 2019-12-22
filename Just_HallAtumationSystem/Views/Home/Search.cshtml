@@ -1,0 +1,60 @@
+﻿@model IEnumerable<MyApp.Models.Student>
+@*@{
+        ViewBag.Title = "Search";
+    }
+
+    <h2>Search</h2>*@
+<br /><br />
+@*
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    <div class="input-group">
+
+        @Html.TextBox("Id", null, new { @class = "form-control" })
+        <span class="input-group-btn" style="margin-left:2px">
+            <input type="submit" class="btn btn-secondary" value="Search">
+        </span>
+    </div>
+
+    @Html.TextBox("searching", null, new { @class = "form-control" })<input type="submit" value="submit" class="btn btn-primary">
+
+}
+<br />
+*@
+
+<table class="table table-striped border">
+    <thead>
+        <tr>
+            <th>StudentName</th>
+            <th>UserName</th>
+            @*<th>DepartMent</th>*@
+            <th>Room No</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" style="color:red">
+                    No match searching data
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.StudentName</td>
+                    <td>@item.User.UserName</td>
+                    @*<td>@item.DepartmentInfo.Department.DeptName.</td>*@
+                    <td>@item.Room.RoomNumber</td>
+
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>
+

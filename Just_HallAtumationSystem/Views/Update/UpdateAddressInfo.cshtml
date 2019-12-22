@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "UpdateAddressInfo";
 }
+@if (ViewBag.Success != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Success");
+            };
+    </script>
+}
 
 
 <section class="mt-5">
@@ -20,7 +28,7 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-                               
+
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group" hidden>
@@ -32,15 +40,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.P_DistrictId)
-                                        @Html.DropDownListFor(model => model.P_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District",new { @class = "form-control"})
+                                        @Html.DropDownListFor(model => model.P_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District", new { @class = "form-control" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.P_VillageName)
                                         @Html.EditorFor(model => model.P_VillageName, new { htmlAttributes = new { @class = "form-control" } })
@@ -49,7 +57,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.P_PostOffice)
                                         @Html.EditorFor(model => model.P_PostOffice, new { htmlAttributes = new { @class = "form-control" } })
@@ -58,15 +66,15 @@
                                 </div>
 
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.T_DistrictId)
-                                        @Html.DropDownListFor(model => model.T_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District",new { @class = "form-control"})
+                                        @Html.DropDownListFor(model => model.T_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District", new { @class = "form-control" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.T_VillageName)
                                         @Html.EditorFor(model => model.T_VillageName, new { htmlAttributes = new { @class = "form-control" } })
@@ -75,7 +83,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                  
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.T_PostOffice)
                                         @Html.EditorFor(model => model.T_PostOffice, new { htmlAttributes = new { @class = "form-control" } })
@@ -101,8 +109,8 @@
 
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

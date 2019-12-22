@@ -22,19 +22,21 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table table-bordered">
+<table class="table table-bordered col-lg-12 col-md-8 col-sm-6">
     <tr>
         <th>
-            Student Name
+            @Html.ActionLink("Student Name", "StudentList", "ShowDetails", new { id = 0 }, htmlAttributes: null)
         </th>
         <th>
-            Department
+            @Html.ActionLink("Department", "StudentList", "ShowDetails", new { id = 1 }, htmlAttributes: null)
         </th>
         <th>
-            Session
+            
+            @Html.ActionLink("Session", "StudentList", "ShowDetails", new { id = 2 }, htmlAttributes: null)
+
         </th>
         <th>
-            Room No
+            @Html.ActionLink("Room No", "StudentList", "ShowDetails", new { id = 3 }, htmlAttributes: null)
         </th>
         <th>
             Phone Number
@@ -43,7 +45,9 @@
             Payment
         </th>
         <th>
-            Hall EntryDate
+            
+            @Html.ActionLink("Hall EntryDate", "StudentList", "ShowDetails", new { id = 4 }, htmlAttributes: null)
+
         </th>
     </tr>
 

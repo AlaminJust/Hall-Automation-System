@@ -3,26 +3,58 @@
 @{
     ViewBag.Title = "profile";
 }
+<style>
+    .element {
+        float: right;
+        border: 1px solid #B9B9B9;
+        width: 280px;
+        min-height: 150px;
+        overflow: auto;
+        padding: 12.5px;
+        position: relative;
+        margin-bottom: 2em;
+    }
+</style>
 
-<h2>profile</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
-@foreach (var item in Model)
-{
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<div class="container mt-5 table-bordered p-5 col-lg-10 col-sm-12">
+    <div class="content">
+        <div class="row">
+            @foreach (var item in Model)
+            {
 
-    <div class="border border-success" style=" margin:4px; height:200px; width:220px">
-        <p><img style="height:190px; width:200px" src="~/Content/images/@item.userImage.Image" /></p>
+                <div class="col-md-8 col-sm-12 col-lg-8">
+                    <h2 style="color:lightseagreen">@item.user.UserName</h2>
+
+                    <span>From </span><a style="font-size:13px" href="https://just.edu.bd/">Jessore University Of Science & Technology</a>
+                    <br /><br />
+                    <p style="color:darkmagenta"> @item.student.StudentName</p>
+
+
+                    <p>Father Name : @item.student.FatherName</p>
+                    <p>Mother Name : @item.student.MotherName</p>
+                    <p>Phone Number : @item.student.MobileNumber</p>
+                    <p>Department Name : @item.department.DeptName</p>
+                    <p>District Name : @item.district.DistrictName</p>
+                    <p>Room Number : @item.room.RoomNumber</p>
+                    @Html.ActionLink("Change Password", "ChangePassword", "LoginRegistration")
+                </div>
+                <div class="col-md-4 col-sm-12 col-lg-3 ">
+
+                    <div class="text-center element">
+                        <p><img style="height:190px; width:200px" src="~/Content/images/@item.userImage.Image" /></p>
+
+                        @Html.ActionLink("Change Photo", "UploadImage", "InsertInformation")
+                    </div>
+
+
+                </div>
+            }
+        </div>
     </div>
-    @item.student.StudentName
-    <p>Father Name : @item.student.FatherName</p>
-    <p>Mother Name : @item.student.MotherName</p>
-    <p>Phone Number : @item.student.MobileNumber</p>
-    <p>Department Name : @item.department.DeptName</p>
-    <p>District Name : @item.district.DistrictName</p>
-    <p>Room Number : @item.room.RoomNumber</p>
-}
-
+</div>
 

@@ -16,44 +16,63 @@ namespace Just_HallAtumationSystem.Controllers
         // GET: File
         public ActionResult FileUpload()
         {
-            return View();
+            try
+            {
+                return View();
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         [HttpPost]
         public ActionResult FileUpload(HttpPostedFileBase files , string FileTile)
         {
-            String FileExt = Path.GetExtension(files.FileName).ToUpper();
-
-            if (FileExt == ".PDF")
+            try
             {
-                Stream str = files.InputStream;
-                BinaryReader Br = new BinaryReader(str);
-                Byte[] FileDet = Br.ReadBytes((Int32)str.Length);
+                String FileExt = Path.GetExtension(files.FileName).ToUpper();
 
-                MyApp.Models.File Fd = new MyApp.Models.File();
-                Fd.FileTitle = FileTile;
-                Fd.FileName = files.FileName;
-                Fd.Datetime = DateTime.Now;
-                Fd.FileContent = FileDet;
-
-                using(var context = new JustHallAtumationEntities())
+                if (FileExt == ".PDF")
                 {
-                    context.Files.Add(Fd);
-                    context.SaveChanges();
+                    Stream str = files.InputStream;
+                    BinaryReader Br = new BinaryReader(str);
+                    Byte[] FileDet = Br.ReadBytes((Int32)str.Length);
+
+                    MyApp.Models.File Fd = new MyApp.Models.File();
+                    Fd.FileTitle = FileTile;
+                    Fd.FileName = files.FileName;
+                    Fd.Date = DateTime.Now.Date;
+                    Fd.FileContent = FileDet;
+
+                    using (var context = new JustHallAtumationEntities())
+                    {
+                        context.Files.Add(Fd);
+                        context.SaveChanges();
+                    }
+
+                    return RedirectToAction("FileUpload");
+                }
+                else
+                {
+
+                    ViewBag.FileStatus = "Invalid file format.";
+                    return View();
+
                 }
 
-                return RedirectToAction("FileUpload");
             }
-            else
+            catch(Exception ex)
             {
-
-                ViewBag.FileStatus = "Invalid file format.";
-                return View();
-
+                return View(ex);
             }
+           
         }
 
         private List<MyApp.Models.File> GetFileList()
         {
+
             List<MyApp.Models.File> files = new List<MyApp.Models.File>();
             using (var context = new JustHallAtumationEntities())
             {
@@ -64,10 +83,19 @@ namespace Just_HallAtumationSystem.Controllers
 
         public ActionResult FileDetails()
         {
-            List < MyApp.Models.File > files = new List<MyApp.Models.File>();
-            files = GetFileList();
-            files.Reverse();
-            return View(files);
+            try
+            {
+                List<MyApp.Models.File> files = new List<MyApp.Models.File>();
+                files = GetFileList();
+                files.Reverse();
+                return View(files);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
 

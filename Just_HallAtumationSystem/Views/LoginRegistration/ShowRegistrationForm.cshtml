@@ -68,13 +68,14 @@
             @Html.DisplayFor(modelItem => item.IsVerified)
         </td>
         <td>
-            @if (item.IsVerified == 0) 
+            @if (item.IsVerified == 0)
             {
                 @Html.ActionLink("Pending", "ActivateTheUser", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null)
             }
             else
             {
-                <p>Accepted</p>
+                <p>Email Is not Verified.</p>
+                @Html.ActionLink("Update", "UpdateRegistraionForm", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null)
             }
         </td>
     </tr>

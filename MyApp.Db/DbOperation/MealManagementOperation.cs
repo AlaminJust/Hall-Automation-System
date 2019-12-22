@@ -59,13 +59,12 @@ namespace MyApp.Db.DbOperation
         {
             using(var context = new JustHallAtumationEntities())
             {
-
                 TimeSpan now = DateTime.Now.TimeOfDay;
                 TimeSpan start = new TimeSpan(00, 0, 0);
                 TimeSpan End = new TimeSpan(24, 00, 0);
                 if (!(now >= start && now <= End))
                 {
-                    return -1;
+                    return -1; // Time is over
                 }
 
                 var mealRate = context.MealCosts.FirstOrDefault();
@@ -78,7 +77,7 @@ namespace MyApp.Db.DbOperation
                 int TotalMealCost = (model.Dinnar * MealRate) + (model.Lunch * MealRate);
                 if(TotalMealCost > UserBalance) // User has not Sufficient Balance
                 {
-                    return -2;
+                    return -2; // Insuffient Balance
                 }
                 else
                 {
@@ -87,7 +86,11 @@ namespace MyApp.Db.DbOperation
                 }
                 var student = context.Students.Where(x => x.UserId == User.UserId).FirstOrDefault();
                 var room = context.Rooms.Where(x => x.RoomId == student.RoomId).FirstOrDefault();
-
+                var meals = context.Meals.Where(x => x.StudentId == student.StudentId && x.Date == DateTime.Today.Date).FirstOrDefault();
+                if(meals != null)
+                {
+                    return -3; // Meal Already Given
+                }
                 Meal meal = new Meal()
                 {
                     Dinnar = model.Dinnar,

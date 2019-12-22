@@ -4,6 +4,14 @@
     ViewBag.Title = "InsertRoomInfo";
 }
 
+@if (ViewBag.Success != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Success");
+            };
+    </script>
+}
 
 
 <section class="mt-5">
@@ -21,11 +29,11 @@
                             @Html.AntiForgeryToken()
 
                             <div class="form-horizontal">
-                              
+
                                 <hr />
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.RoomNumber)
                                         @Html.EditorFor(model => model.RoomNumber, new { htmlAttributes = new { @class = "form-control" } })
@@ -34,7 +42,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.TotalSeat)
                                         @Html.EditorFor(model => model.TotalSeat, new { htmlAttributes = new { @class = "form-control" } })
@@ -43,7 +51,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                   
+
                                     <div class="col-md-10 offset-1 offset-lg-2">
                                         @Html.LabelFor(model => model.EmptySeat)
                                         @Html.EditorFor(model => model.EmptySeat, new { htmlAttributes = new { @class = "form-control" } })
@@ -68,8 +76,8 @@
 
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

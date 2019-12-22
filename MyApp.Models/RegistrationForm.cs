@@ -23,5 +23,6 @@ namespace MyApp.Models
         public Nullable<int> Password { get; set; }
         public string Email { get; set; }
         public Nullable<int> IsVerified { get; set; }
+        public string Verification { get; set; }
     }
 }

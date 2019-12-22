@@ -28,6 +28,7 @@ namespace MyApp.Db.DbOperation
                                 {
                                     student = s,
                                     userImage = img,
+                                    user = u,
                                     room = r,
                                     departmentInfo = depInfo,
                                     district = dis,
@@ -35,7 +36,7 @@ namespace MyApp.Db.DbOperation
                                     address = add
                                 }).ToList();
 
-                if(profiles != null)
+                if(profiles.Count() > 0 )
                     profiles[0].registrationForm = context.RegistrationForms.Where(x => x.UserName == UserName).FirstOrDefault();
                 return profiles;
             }

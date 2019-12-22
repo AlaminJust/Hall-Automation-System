@@ -60,6 +60,7 @@
     <Compile Include="AddressInfoModel.cs" />
     <Compile Include="AddressModel.cs" />
     <Compile Include="AllAccountsModel.cs" />
+    <Compile Include="changePasswordModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Communication.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -74,6 +75,7 @@
     <Compile Include="District.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EmailVerificationModel.cs" />
     <Compile Include="EmpModel.cs" />
     <Compile Include="File.cs">
       <DependentUpon>Model1.tt</DependentUpon>

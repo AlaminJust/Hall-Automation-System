@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MyApp.Models;
 using MyApp.Db;
 using MyApp.Db.DbOperation;
+using System.Net;
 
 namespace Just_HallAtumationSystem.Controllers
 {
@@ -15,110 +16,164 @@ namespace Just_HallAtumationSystem.Controllers
         UpdateOperation updateOperation = new UpdateOperation();
         public ActionResult UpdateStudentInfo(int? Id) // Student Id
         {
-            if(Id == null)
+            try
             {
-                // return Threat
+                if (Id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                StudentUpdateModel studentUpdateModel = new StudentUpdateModel();
+                studentUpdateModel.StudentId = (int)Id;
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var student = context.Students.Where(x => x.StudentId == (int)Id).FirstOrDefault();
+                    studentUpdateModel.StudentName = student.StudentName;
+                    studentUpdateModel.FatherName = student.FatherName;
+                    studentUpdateModel.MotherName = student.MotherName;
+                    studentUpdateModel.MobileNumber = student.MobileNumber;
+                    studentUpdateModel.room = context.Rooms.ToList();
+                }
+                return View(studentUpdateModel);
+
             }
-            StudentUpdateModel studentUpdateModel = new StudentUpdateModel();
-            studentUpdateModel.StudentId = (int)Id;
-            using(var context = new JustHallAtumationEntities())
+            catch(Exception ex)
             {
-                var student = context.Students.Where(x => x.StudentId == (int)Id).FirstOrDefault();
-                studentUpdateModel.StudentName = student.StudentName;
-                studentUpdateModel.FatherName = student.FatherName;
-                studentUpdateModel.MotherName = student.MotherName;
-                studentUpdateModel.MobileNumber = student.MobileNumber;
-                studentUpdateModel.room = context.Rooms.ToList();
+                return View(ex);
             }
-            return View(studentUpdateModel);
+            
         }
         [HttpPost]
         public ActionResult UpdateStudentInfo(StudentUpdateModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int id = updateOperation.StudentInformationUpdate(model);
-                if(id > 0)
+                if (ModelState.IsValid)
                 {
-                    ModelState.Clear();
-                    ViewBag.Successs = "Data Updated!";
+                    int id = updateOperation.StudentInformationUpdate(model);
+                    if (id > 0)
+                    {
+                        ModelState.Clear();
+                        ViewBag.Successs = "Data Updated!";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Failed!";
+                    }
                 }
-                else
-                {
-                    ViewBag.Success = "Failed!";
-                }
+                return RedirectToAction("StudentList", "ShowDetails");
+
             }
-            return RedirectToAction("StudentList", "ShowDetails");
+             catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         //Update Address Information
 
         public ActionResult UpdateAddressInfo(int? id) // Student Id
         {
-            AddressInfoModel addressInfoModel = new AddressInfoModel();
-            addressInfoModel.StudentId = (int)id;
-            using(var context=new JustHallAtumationEntities())
+            try
             {
-                var address = context.Addresses.Where(x => x.StudentId == (int)id).FirstOrDefault();
-                addressInfoModel.P_PostOffice = address.P_PostOffice;
-                addressInfoModel.P_VillageName = address.P_VillageName;
-                addressInfoModel.T_PostOffice = address.T_PostOffice;
-                addressInfoModel.T_VillageName = address.T_VillageName;
-                addressInfoModel.districts = context.Districts.ToList();
-            }
+                AddressInfoModel addressInfoModel = new AddressInfoModel();
+                addressInfoModel.StudentId = (int)id;
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var address = context.Addresses.Where(x => x.StudentId == (int)id).FirstOrDefault();
+                    addressInfoModel.P_PostOffice = address.P_PostOffice;
+                    addressInfoModel.P_VillageName = address.P_VillageName;
+                    addressInfoModel.T_PostOffice = address.T_PostOffice;
+                    addressInfoModel.T_VillageName = address.T_VillageName;
+                    addressInfoModel.districts = context.Districts.ToList();
+                }
 
-            return View(addressInfoModel);
+                return View(addressInfoModel);
+
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         [HttpPost]
         public ActionResult UpdateAddressInfo(AddressInfoModel model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int id = updateOperation.AddressInformationUpdate(model);
-                if (id > 0)
+                if (ModelState.IsValid)
                 {
-                    ModelState.Clear();
-                    ViewBag.Success = "Inserted Successfully";
+                    int id = updateOperation.AddressInformationUpdate(model);
+                    if (id > 0)
+                    {
+                        ModelState.Clear();
+                        ViewBag.Success = "Inserted Successfully";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Failed!";
+                    }
                 }
-                else
-                {
-                    ViewBag.Success = "Failed";
-                }
+                return RedirectToAction("StudentList", "ShowDetails");
+
             }
-            return RedirectToAction("StudentList", "ShowDetails");
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
 
         }
         public ActionResult UpdateDepartmentInfo(int? id)
         {
-            DepartMentWithDeptName departmentInfoModel = new DepartMentWithDeptName();
-            departmentInfoModel.StudentId = (int)id;
-            using (var context=new JustHallAtumationEntities())
+            try
             {
-                var result = context.DepartmentInfoes.Where(x => x.StudentId == (int)id).FirstOrDefault();
-                departmentInfoModel.Cgpa = result.Cgpa;
-                departmentInfoModel.Session = result.Session;
-                departmentInfoModel.department = context.Departments.ToList();
+                DepartMentWithDeptName departmentInfoModel = new DepartMentWithDeptName();
+                departmentInfoModel.StudentId = (int)id;
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var result = context.DepartmentInfoes.Where(x => x.StudentId == (int)id).FirstOrDefault();
+                    departmentInfoModel.Cgpa = result.Cgpa;
+                    departmentInfoModel.Session = result.Session;
+                    departmentInfoModel.department = context.Departments.ToList();
+                }
+                return View(departmentInfoModel);
+
             }
-            return View(departmentInfoModel);
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
 
         }
         [HttpPost]
         public ActionResult UpdateDepartmentInfo(DepartMentWithDeptName model)
         {
-            if(ModelState.IsValid)
+            try
             {
-                int id = updateOperation.DepartmentInfoUpdate(model);
-                if(id > 0)
+                if (ModelState.IsValid)
                 {
-                    ModelState.Clear();
-                    ViewBag.Success = "Successfully Updated!";
+                    int id = updateOperation.DepartmentInfoUpdate(model);
+                    if (id > 0)
+                    {
+                        ModelState.Clear();
+                        ViewBag.Success = "Successfully Updated!";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Failed!";
+                    }
                 }
-                else
-                {
-                    ViewBag.Success = "Failed!";
-                }
+                return RedirectToAction("StudentList", "ShowDetails");
+
             }
-            return RedirectToAction("StudentList", "ShowDetails");
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
     }
 }

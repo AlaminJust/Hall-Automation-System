@@ -10,6 +10,7 @@ namespace MyApp.Models
     {
         public Student student = new Student();
         public UserImage userImage = new UserImage();
+        public User user = new User();
         public Address address = new Address();
         public DepartmentInfo departmentInfo = new DepartmentInfo();
         public Room room = new Room();

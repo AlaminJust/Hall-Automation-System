@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using MyApp.Models;
 using MyApp.Db.DbOperation;
 using MyApp.Db;
+using static System.Net.WebRequestMethods;
+using System.Net;
 
 namespace Just_HallAtumationSystem.Controllers
 {
@@ -13,20 +15,40 @@ namespace Just_HallAtumationSystem.Controllers
     {
         // GET: MealManagement
         MealManagementOperation mealManagementOperation = new MealManagementOperation();
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="MealAdmin")]
         public ActionResult AllAcount()
         {
-            var accounts = mealManagementOperation.GetAllAccount().OrderBy(x => x.room.RoomNumber);
-            return View(accounts);
+            try
+            {
+                var accounts = mealManagementOperation.GetAllAccount().OrderBy(x => x.room.RoomNumber);
+                return View(accounts);
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+           
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "MealAdmin")]
         public ActionResult AddBalance(int? Id) // User Id
         {
-            Account account = new Account();
-            account.UserId = (int)Id;
-            return View(account);
+            try
+            {
+                if (Id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Account account = new Account();
+                account.UserId = (int)Id;
+                return View(account);
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "MealAdmin")]
         [HttpPost]
         public ActionResult AddBalance(Account model)
         {
@@ -45,127 +67,239 @@ namespace Just_HallAtumationSystem.Controllers
             }
             return RedirectToAction("AllAcount");
         }
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
 
         // Show Balance of Specific User
         public ActionResult ShowBalance(int? Id) // UserId
         {
-            var result = mealManagementOperation.GetUserAccount((int)Id);
-            return View(result);
+            try
+            {
+                if (Id == null)
+                {
+                    using (var context = new JustHallAtumationEntities())
+                    {
+                        var user = context.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
+                        Id = user.UserId;
+                    }
+                }
+                if (Id == null)
+                {
+                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var result = mealManagementOperation.GetUserAccount((int)Id);
+                return View(result);
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         public ActionResult AddMeal() // User Id
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         [HttpPost]
         public ActionResult AddMeal(Meal model)
         {
-            string UserName = User.Identity.Name;
-            if (ModelState.IsValid)
+            try
             {
-                int id = mealManagementOperation.AddMeal(model, UserName);
+                string UserName = User.Identity.Name;
+                if (ModelState.IsValid)
+                {
+                    int id = mealManagementOperation.AddMeal(model, UserName);
+                    if(id == -1)
+                    {
+                        ViewBag.Success = "Time is Over!";
+                    }
+                    else if(id == -2)
+                    {
+                        ViewBag.Success = "Insufficient Balance!";
+                    }
+                    else if(id == -3)
+                    {
+                        ViewBag.Success = "Meal Already has been given. You can update it!";
+                    }
+                    else if(id > 0)
+                    {
+                        ViewBag.Success = "Meal successfully given!";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Somethings Wrong Report it!";
+                    }
+                }
+                return View();
             }
-            return View();
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         // To Update Meal
         public ActionResult UpdateMeal()
         {
-            string UserName = User.Identity.Name;
-            Meal meal = new Meal();
-            using(var context = new JustHallAtumationEntities())
+            try
             {
-                var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
-                var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
-                meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault();
+                string UserName = User.Identity.Name;
+                Meal meal = new Meal();
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
+                    var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                    meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault();
+                }
+
+                return View(meal);
+            }
+            catch(Exception ex)
+            {
+                return View(ex);
             }
             
-            return View(meal);
         }
         [HttpPost]
         public ActionResult UpdateMeal(Meal Model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int id = mealManagementOperation.Update(Model, User.Identity.Name);
-                if(id == -1)
+                if (ModelState.IsValid)
                 {
-                    ViewBag.Success = "Time is Over!";
+                    int id = mealManagementOperation.Update(Model, User.Identity.Name);
+                    if (id == -1)
+                    {
+                        ViewBag.Success = "Time is Over!";
+                    }
+                    else if (id == -2)
+                    {
+                        ViewBag.Success = "You have no Meal Yet!";
+                    }
+                    else if (id == -3)
+                    {
+                        ViewBag.Success = "Insufficient Balance!";
+                    }
+                    else if (id > 0)
+                    {
+                        ViewBag.Success = "Succesfully Updated!";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Somethings Went Wrong! Report It";
+                    }
                 }
-                else if(id == -2)
-                {
-                    ViewBag.Success = "You have no Meal Yet!";
-                }
-                else if(id == -3)
-                {
-                    ViewBag.Success = "Insufficient Balance!";
-                }
-                else if(id > 0)
-                {
-                    ViewBag.Success = "Succesfully Updated!";
-                }
-                else
-                {
-                    ViewBag.Success = "Somethings Went Wrong!";
-                }
+                return View();
             }
-            return View();
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         // To Add MealRate
         public ActionResult AddMealRate()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         [HttpPost]
         public ActionResult AddMealRate(MealCost model)
         {
-            if (ModelState.IsValid)
+            try
             {
-                int id = mealManagementOperation.AddMealRate(model);
-                if(id > 0)
+                if (ModelState.IsValid)
                 {
-                    ModelState.Clear();
-                    ViewBag.Success = "Meal Rate Added!";
+                    int id = mealManagementOperation.AddMealRate(model);
+                    if (id > 0)
+                    {
+                        ModelState.Clear();
+                        ViewBag.Success = "Meal Rate Added!";
+                    }
+                    else
+                    {
+                        ViewBag.Success = "Meal Rate Not Added!";
+                    }
                 }
-                else
-                {
-                    ViewBag.Success = "Meal Rate Not Added!";
-                }
+                return RedirectToAction("ShowMealRate");
             }
-            return RedirectToAction("ShowMealRate");
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         // To MealRate
         public ActionResult ShowMealRate()
         {
-            using(var context = new JustHallAtumationEntities())
+            try
             {
-                var result = context.MealCosts.FirstOrDefault();
-                return View(result);
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var result = context.MealCosts.FirstOrDefault();
+                    return View(result);
+                }
             }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
 
         // Show Meal Today MealList
 
         public ActionResult ShowTodayAllMeal()
         {
-            using (var context = new JustHallAtumationEntities())
+            try
             {
-                var result = context.Meals.Where(x => x.Date == DateTime.Today.Date).ToList();
-                var sortedResult = result.OrderBy(x => x.RoomNo).ToList();
-                return View(sortedResult);
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var result = context.Meals.Where(x => x.Date == DateTime.Today.Date).ToList();
+                    var sortedResult = result.OrderBy(x => x.RoomNo).ToList();
+                    return View(sortedResult);
+                }
             }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
         // To Show Previous Day MealList
         public ActionResult ShowPreviousDayMeal()
         {
-            using (var context = new JustHallAtumationEntities())
+            try
             {
-                var result = context.Meals.Where(x => x.Date == DateTime.Today.Date.AddDays(-1)).ToList();
-                var sortedResult = result.OrderBy(x => x.RoomNo).ToList();
-                return View(sortedResult);
+                using (var context = new JustHallAtumationEntities())
+                {
+                    var result = context.Meals.Where(x => x.Date == DateTime.Today.Date.AddDays(-1)).ToList();
+                    var sortedResult = result.OrderBy(x => x.RoomNo).ToList();
+                    return View(sortedResult);
+                }
             }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+            
         }
     }
 }
