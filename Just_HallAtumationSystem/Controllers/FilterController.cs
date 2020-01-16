@@ -11,6 +11,7 @@ namespace Just_HallAtumationSystem.Controllers
     public class FilterController : Controller
     {
         // GET: Filter
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Index()
         {
             try
@@ -29,6 +30,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
            
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Search()
         {
             try
@@ -57,6 +59,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         [HttpPost]
         public ActionResult Search(SearchingModel model)
         {

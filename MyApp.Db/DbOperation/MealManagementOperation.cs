@@ -26,7 +26,7 @@ namespace MyApp.Db.DbOperation
         }
 
         // To Add Balance to the user Account
-        public int AddBalance(Account model)
+        public int AddBalance(Account model, string AdedBy) // Admin
         {
             using (var context = new JustHallAtumationEntities())
             {
@@ -34,12 +34,20 @@ namespace MyApp.Db.DbOperation
                 if(result != null)
                 {
                     result.Balance += model.Balance;
+                    Transaction transaction = new Transaction()
+                    {
+                        UserId = result.UserId,
+                        AddedBy = AdedBy,
+                        Balance = model.Balance,
+                        Date = DateTime.Now
+                    };
+                    context.Transactions.Add(transaction);
+                    context.SaveChanges();
                 }
                 else
                 {
                     return -1;
                 }
-                context.SaveChanges();
                 return result.UserId;
             }
         }
@@ -75,7 +83,23 @@ namespace MyApp.Db.DbOperation
                 UserBalance = (int)UserAccount.Balance;
 
                 int TotalMealCost = (model.Dinnar * MealRate) + (model.Lunch * MealRate);
-                if(TotalMealCost > UserBalance) // User has not Sufficient Balance
+                var student = context.Students.Where(x => x.UserId == User.UserId).FirstOrDefault();
+                if (student == null)
+                {
+                    return -5;// Student information must feel up before add meal
+                }
+                var room = context.Rooms.Where(x => x.RoomId == student.RoomId).FirstOrDefault();
+                if(room == null || student == null)
+                {
+                    return -5;// Student information must feel up before add meal
+                }
+                var meals = context.Meals.Where(x => x.StudentId == student.StudentId && x.Date == DateTime.Today.Date).FirstOrDefault();
+                if(meals != null)
+                {
+                    return -3; // Meal Already Given
+                }
+
+                if (TotalMealCost > UserBalance) // User has not Sufficient Balance
                 {
                     return -2; // Insuffient Balance
                 }
@@ -84,13 +108,7 @@ namespace MyApp.Db.DbOperation
                     UserAccount.Balance = UserAccount.Balance - TotalMealCost;
                     context.SaveChanges();
                 }
-                var student = context.Students.Where(x => x.UserId == User.UserId).FirstOrDefault();
-                var room = context.Rooms.Where(x => x.RoomId == student.RoomId).FirstOrDefault();
-                var meals = context.Meals.Where(x => x.StudentId == student.StudentId && x.Date == DateTime.Today.Date).FirstOrDefault();
-                if(meals != null)
-                {
-                    return -3; // Meal Already Given
-                }
+
                 Meal meal = new Meal()
                 {
                     Dinnar = model.Dinnar,
@@ -121,6 +139,10 @@ namespace MyApp.Db.DbOperation
                 }
                 var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
                 var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                if(student == null)
+                {
+                    return -5; // All information must be fill up befor update or add the meals 
+                }
                 var meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault(); // Find Meal from database
                 if(meal == null) 
                 {

@@ -83,7 +83,7 @@ namespace Just_HallAtumationSystem.Controllers
                 {
                     using(var context = new JustHallAtumationEntities())
                     {
-                        var registration = context.RegistrationForms.Where(x => x.UserName == model.UserName && x.Verification == model.VerificationCode && x.IsVerified == 2).FirstOrDefault();
+                        var registration = context.RegistrationForms.Where(x => x.UserName.Replace(" ","") == model.UserName.Replace(" ","") && x.Verification.Replace(" ","") == model.VerificationCode.Replace(" ","") && x.IsVerified == 2).FirstOrDefault();
                         if(registration != null)
                         {
                             registration.IsVerified = 0; /// Eamil Is verified Wait for 1 ( Hall Provost )
@@ -106,6 +106,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
         // To Registration Form Update
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateRegistraionForm(int? Id)
         {
             try
@@ -124,6 +125,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateRegistraionForm(RegistrationForm model)
         {
             try
@@ -154,8 +156,9 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(ex);
             }
         }
-
+        [Authorize]
         // To Show Registration Form For Admin
+        [Authorize(Roles = "Admin")]
         public ActionResult ShowRegistrationForm()
         {
             try
@@ -172,7 +175,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult ActivateTheUser(int? Id)
         {
             try
@@ -183,15 +186,21 @@ namespace Just_HallAtumationSystem.Controllers
                     int id = loginRegistrationOperation.Registrataion(result);
                     if (id > 0)
                     {
-                        ViewBag.Success = "Successfully Activated The User!";
+                        UsersRole user = new UsersRole
+                        {
+                            UserId = id,
+                            Role = "Student"
+                        };
                         result.IsVerified = 1;
+                        context.UsersRoles.Add(user);
                         context.SaveChanges();
+                        ViewBag.Success = "Successfully Activated The User!";
                     }
                     else
                     {
                         ViewBag.Success = "Failed to Verified The user!";
                     }
-                    return RedirectToAction("ShowRegistrationForm");
+                    return RedirectToAction("Notices","Home");
                 }
             }
             catch(Exception ex)
@@ -242,6 +251,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
            
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Logout()
         {
             try
@@ -256,7 +266,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
-
+        
         /// For forget password
         public ActionResult ForgetPassword()
         {
@@ -300,7 +310,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
           
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult ChangePassword()
         {
             try
@@ -314,6 +324,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult ChangePassword(changePasswordModel model)
         {
             try

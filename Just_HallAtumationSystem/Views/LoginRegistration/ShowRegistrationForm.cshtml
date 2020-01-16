@@ -4,11 +4,11 @@
     ViewBag.Title = "ShowRegistrationForm";
 }
 
-<h2>ShowRegistrationForm</h2>
+<h2 class="mt-4 text-center">Registration Form</h2>
 
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>
@@ -26,15 +26,15 @@
         <th>
             @Html.DisplayNameFor(model => model.Session)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Password)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.IsVerified)
-        </th>
+        </th>*@
         <th>
             Request
         </th>
@@ -58,15 +58,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Session)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Password)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.IsVerified)
-        </td>
+        </td>*@
         <td>
             @if (item.IsVerified == 0)
             {

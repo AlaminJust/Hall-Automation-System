@@ -16,6 +16,12 @@
     }
 </style>
 
+@if(Model.Count() == 0)
+{
+
+    <p class="mt-3 text-center">Please provide your all information!</p>
+
+}
 
 
 @*<p>
@@ -24,25 +30,34 @@
 <div class="container mt-5 table-bordered p-5 col-lg-10 col-sm-12">
     <div class="content">
         <div class="row">
+            @if (User.IsInRole("Admin"))
+            {
+                //@ViewBag.Success.UserName
+            }
             @foreach (var item in Model)
             {
 
-                <div class="col-md-8 col-sm-12 col-lg-8">
-                    <h2 style="color:lightseagreen">@item.user.UserName</h2>
+            <div class="col-md-8 col-sm-12 col-lg-8">
+                <h2 style="color:lightseagreen">@item.user.UserName</h2>
 
-                    <span>From </span><a style="font-size:13px" href="https://just.edu.bd/">Jessore University Of Science & Technology</a>
-                    <br /><br />
-                    <p style="color:darkmagenta"> @item.student.StudentName</p>
+                <span>From </span><a style="font-size:13px" href="https://just.edu.bd/">Jashore University Of Science & Technology</a>
+                <br /><br />
+                <p style="color:darkmagenta"> @item.student.StudentName</p>
 
 
-                    <p>Father Name : @item.student.FatherName</p>
-                    <p>Mother Name : @item.student.MotherName</p>
-                    <p>Phone Number : @item.student.MobileNumber</p>
-                    <p>Department Name : @item.department.DeptName</p>
-                    <p>District Name : @item.district.DistrictName</p>
-                    <p>Room Number : @item.room.RoomNumber</p>
-                    @Html.ActionLink("Change Password", "ChangePassword", "LoginRegistration")
-                </div>
+                <p>Father Name : @item.student.FatherName</p>
+                <p>Mother Name : @item.student.MotherName</p>
+                <p>Phone Number : @item.student.MobileNumber</p>
+                <p>Department Name : @item.department.DeptName</p>
+                <p>District Name : @item.district.DistrictName</p>
+                <p>Room Number : @item.room.RoomNumber</p>
+                <p>Email : @item.user.UserEmail</p>
+                <p>@Html.ActionLink("Change Password", "ChangePassword", "LoginRegistration")</p>
+                @if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Room allocation", "GroupByRoom", "ShowDetails")
+                }
+            </div>
                 <div class="col-md-4 col-sm-12 col-lg-3 ">
 
                     <div class="text-center element">
@@ -50,7 +65,7 @@
 
                         @Html.ActionLink("Change Photo", "UploadImage", "InsertInformation")
                     </div>
-
+                    <p style="text-align:right; font:100" >@Html.ActionLink("Request for meal admin", "MealAdminRegistraion", "Admin")</p>
 
                 </div>
             }

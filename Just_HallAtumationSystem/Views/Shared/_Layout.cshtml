@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    
+
 
     <div class="navbar navbar-expand-md navbar-dark fixed-top bg-dark navbar-custom  font-weight-normal" style="font-size:15px">
         <div class="container">
@@ -28,9 +28,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <a class="navbar-brand">
+                <a class="navbar-brand" style="color:white">
                     <span>
-                        <img src="~/Images/Just_logo.jpg" height="30" />
+                        <img src="~/Content/Images/Just_logo.jpg" height="30" />
                     </span>JUST SMRH
 
                 </a>
@@ -38,7 +38,7 @@
                 @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
 
-           
+
 
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -58,34 +58,33 @@
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Information<b class="caret"></b></a>
                             <ul class="dropdown-menu py-1 px-1" style="background-color:black;text-decoration:none">
-
-                                <li class="nav-item">@Html.ActionLink("Student", "InsertStudentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
-                                <li class="nav-item">@Html.ActionLink("DepartmentInfo", "InsertUserDepartmentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
-                                <li class="nav-item">@Html.ActionLink("Address", "InsertAddress", "InsertInformation", null, new { @class = "nav-link" })</li>
-                                <li class="nav-item">@Html.ActionLink("Upload Image", "UploadImage", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                @if (User.IsInRole("Admin") == false)
+                                {
+                                    <li class="nav-item">@Html.ActionLink("My Info", "InsertStudentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Department Info", "InsertUserDepartmentInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Address Info", "InsertAddress", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                }
+                                <li class="nav-item">@Html.ActionLink("My Picture", "UploadImage", "InsertInformation", null, new { @class = "nav-link" })</li>
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <li class="nav-item">@Html.ActionLink("Department", "InsertDepartmentName", "InsertInformation", null, new { @class = "nav-link" })</li>
-                                    <li class="nav-item">@Html.ActionLink("District", "InsertDistrictName", "InsertInformation", null, new { @class = "nav-link" })</li>
-                                    <li class="nav-item">@Html.ActionLink("Room", "InsertRoomInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item" style="width:auto">@Html.ActionLink("Add new dept", "InsertDepartmentName", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item" style="width:auto">@Html.ActionLink("Add new district", "InsertDistrictName", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item" style="width:auto">@Html.ActionLink("Add new room", "InsertRoomInfo", "InsertInformation", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item" style="width:auto">@Html.ActionLink("Upload notices", "FileUpload", "File", null, new { @class = "nav-link" })</li>
                                 }
                             </ul>
                         </li>
 
                         @*Update information*@
-
-                        @*<li class="dropdown nav-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Update<b class="caret"></b></a>
-                    <ul class="dropdown-menu py-1 px-1" style="background-color:black">
-                        <li class="nav-item">@Html.ActionLink("Address", "UpdateAddressInfo", "Update", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Student", "UpdateAddressInfo", "Update", null, new { @class = "nav-link" })</li>
-
-                    </ul>
-                </li>*@
-                        //StudentList
                         if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">@Html.ActionLink("StudentList", "StudentList", "ShowDetails", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Update", "UpdateList", "Update", null, new { @class = "nav-link" })</li>
+
+                        }
+                        //StudentList
+                        if (User.IsInRole("Admin") || User.IsInRole("MealAdmin") || User.IsInRole("Student"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("Studenslist", "Studentslist", "ShowDetails", null, new { @class = "nav-link" })</li>
                         }
 
                         if (User.IsInRole("MealAdmin"))
@@ -96,11 +95,13 @@
                                 <ul class="dropdown-menu py-1 px-1" style="background-color:black">
 
                                     <li class="nav-item">@Html.ActionLink("All Account", "AllAcount", "MealManagement", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("Show Balance", "ShowBalance", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Add Meal", "AddMeal", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Update Meal", "UpdateMeal", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Add Meal Rate", "AddMealRate", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Show Meal Rate", "ShowMealRate", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Today Meals", "ShowTodayAllMeal", "MealManagement", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("My Transaction", "ShowTransaction", "MealManagement", null, new { @class = "nav-link" })</li>
 
                                 </ul>
                             </li>
@@ -117,6 +118,7 @@
                                     <li class="nav-item">@Html.ActionLink("Update Meal", "UpdateMeal", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Show Meal Rate", "ShowMealRate", "MealManagement", null, new { @class = "nav-link" })</li>
                                     <li class="nav-item">@Html.ActionLink("Today Meals", "ShowTodayAllMeal", "MealManagement", null, new { @class = "nav-link" })</li>
+                                    <li class="nav-item">@Html.ActionLink("My Transaction", "ShowTransaction", "MealManagement", null, new { @class = "nav-link" })</li>
 
 
                                 </ul>
@@ -124,8 +126,15 @@
 
                         }
 
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">@Html.ActionLink(@User.Identity.Name, "AdminProfile", "ShowDetails", null, new { @class = "nav-link" })</li>
 
-                        <li class="nav-item">@Html.ActionLink(@User.Identity.Name, "profile", "ShowDetails", null, new { @class = "nav-link" })</li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink(@User.Identity.Name, "profile", "ShowDetails", null, new { @class = "nav-link" })</li>
+                        }
                         <li class="nav-item">@Html.ActionLink("Logout", "Logout", "LoginRegistration", null, new { @class = "nav-link" })</li>
 
                     }
@@ -135,15 +144,18 @@
                     }
 
                 </ul>
-                <div class="navbar-left" style="margin-top:8px; ">
-                    @using (Html.BeginForm("Search", "Home", FormMethod.Get))
-                    {
-                        <ul class="nav navbar-nav">
-                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
-                            <li><input type="submit" value="Search" /></li>
-                        </ul>
-                    }
-                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-left" style="margin-top:8px;">
+                        @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+                        {
+                            <ul class="nav navbar-nav">
+                                <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
+                                <li><input type="submit" value="Search" /></li>
+                            </ul>
+                        }
+                    </div>
+                }
             </div>
         </div>
     </div>

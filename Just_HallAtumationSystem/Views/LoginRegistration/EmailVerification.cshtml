@@ -12,36 +12,50 @@
             };
     </script>
 }
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-lg-2 offset-md-1 offset-sm-1">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="display-5 text-center">
+                        <strong> Email Verification</strong>
+                    </h2>
 
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                        <div class="form-horizontal">
+                            
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                             
+                                <div class="col-md-10 offset-lg-3 offset-md-1">
+                                    @Html.LabelFor(model => model.UserName)
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-    <div class="form-horizontal">
-        <h4>EmailVerificationModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                            <div class="form-group">
+                               
+                                <div class="col-md-10 offset-lg-3 offset-md-1">
+                                    @Html.LabelFor(model => model.VerificationCode)
+                                    @Html.EditorFor(model => model.VerificationCode, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.VerificationCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.VerificationCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.VerificationCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.VerificationCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                            <div class="form-group">
+                                <div class="col-md-10 offset-md-1 offset-lg-3">
+                                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-}
+</div>

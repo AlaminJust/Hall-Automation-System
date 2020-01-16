@@ -14,6 +14,7 @@ namespace Just_HallAtumationSystem.Controllers
     public class FileController : Controller
     {
         // GET: File
+        [Authorize(Roles = "Admin,MealAdmin")]
         public ActionResult FileUpload()
         {
             try
@@ -28,6 +29,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,MealAdmin")]
         public ActionResult FileUpload(HttpPostedFileBase files , string FileTile)
         {
             try
@@ -69,7 +71,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
            
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         private List<MyApp.Models.File> GetFileList()
         {
 
@@ -80,7 +82,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             return files;
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult FileDetails()
         {
             try
@@ -99,7 +101,9 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
 
+
         [HttpGet]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public FileResult DownLoadFile(int id)
         {
 

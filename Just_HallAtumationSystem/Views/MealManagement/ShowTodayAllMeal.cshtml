@@ -4,11 +4,19 @@
     ViewBag.Title = "ShowTodayAllMeal";
 }
 
-<h2>ShowTodayAllMeal</h2>
+<span class="text-center" style="margin:1px"> <h5>Today meal list.</h5></span>
+@{
+    int dinar = 0, lunch = 0;
+    foreach (var item in Model)
+    {
+        dinar += item.Dinnar;
+        lunch += item.Lunch;
+    }
+}
+<span class="text-center"> <h6>Total lunch meals <b>@lunch</b> </h6></span>
+<span class="text-center"> <h6>Total dinar meals <b>@dinar</b> </h6></span>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -34,31 +42,32 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.StudentName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.RoomNo)
-    </td>
-    <td hidden>
-        @Html.DisplayFor(modelItem => item.StudentId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Lunch)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Dinnar)
-    </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNo)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lunch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dinnar)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Date)
-    </td>
-    <td hidden>
-        @Html.DisplayFor(modelItem => item.Time)
-    </td>
-</tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+        </tr>
+    }
 
 </table>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyApp.Models
@@ -18,5 +19,13 @@ namespace MyApp.Models
         public List<Search> search = new List<Search>();
         public string searching { get; set; }
         public int SearchId { get; set; }
+    }
+}
+namespace LinqGrouping.Models
+{
+    public class Group<K, T>
+    {
+        public K Key;
+        public IEnumerable<T> Values;
     }
 }

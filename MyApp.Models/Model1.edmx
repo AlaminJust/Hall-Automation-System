@@ -24,6 +24,20 @@
           <Property Name="T_VillageName" Type="nchar" MaxLength="50" />
           <Property Name="T_PostOffice" Type="nchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="AdminRegistrionPassword">
+          <Key>
+            <PropertyRef Name="RegistraionId" />
+          </Key>
+          <Property Name="RegistraionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdminRegPass" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AllMealAdmins">
+          <Key>
+            <PropertyRef Name="MealAdminsId" />
+          </Key>
+          <Property Name="MealAdminsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MealAdminRegId" Type="int" />
+        </EntityType>
         <EntityType Name="Communication">
           <Key>
             <PropertyRef Name="CommunicateId" />
@@ -78,6 +92,17 @@
           <Property Name="Date" Type="date" />
           <Property Name="Time" Type="time" Precision="7" />
           <Property Name="StudentName" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MealAdminReg">
+          <Key>
+            <PropertyRef Name="MealAdminRegId" />
+          </Key>
+          <Property Name="MealAdminRegId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Flag" Type="int" />
         </EntityType>
         <EntityType Name="MealCost">
           <Key>
@@ -145,6 +170,16 @@
           <Property Name="MotherName" Type="nchar" MaxLength="50" />
           <Property Name="MobileNumber" Type="nchar" MaxLength="50" />
           <Property Name="PaymentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Balance" Type="int" />
+          <Property Name="AddedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
         </EntityType>
         <EntityType Name="UserImage">
           <Key>
@@ -216,6 +251,18 @@
             </Principal>
             <Dependent Role="Address">
               <PropertyRef Name="StudentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AllMealAdmins_AllMealAdmins">
+          <End Role="MealAdminReg" Type="Self.MealAdminReg" Multiplicity="1" />
+          <End Role="AllMealAdmins" Type="Self.AllMealAdmins" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MealAdminReg">
+              <PropertyRef Name="MealAdminRegId" />
+            </Principal>
+            <Dependent Role="AllMealAdmins">
+              <PropertyRef Name="MealAdminsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -291,6 +338,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transaction_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserImage_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="UserImage" Type="Self.UserImage" Multiplicity="*" />
@@ -318,12 +377,15 @@
         <EntityContainer Name="JustHallAtumationModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminRegistrionPassword" EntityType="Self.AdminRegistrionPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AllMealAdmins" EntityType="Self.AllMealAdmins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Communication" EntityType="Self.Communication" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentInfo" EntityType="Self.DepartmentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meal" EntityType="Self.Meal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MealAdminReg" EntityType="Self.MealAdminReg" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MealCost" EntityType="Self.MealCost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NoticeBoard" EntityType="Self.NoticeBoard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Preference" EntityType="Self.Preference" Schema="dbo" store:Type="Tables" />
@@ -331,6 +393,7 @@
           <EntitySet Name="Room" EntityType="Self.Room" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserImage" EntityType="Self.UserImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersRole" EntityType="Self.UsersRole" Schema="dbo" store:Type="Tables" />
@@ -349,6 +412,10 @@
           <AssociationSet Name="FK_Address_Student" Association="Self.FK_Address_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AllMealAdmins_AllMealAdmins" Association="Self.FK_AllMealAdmins_AllMealAdmins">
+            <End Role="MealAdminReg" EntitySet="MealAdminReg" />
+            <End Role="AllMealAdmins" EntitySet="AllMealAdmins" />
           </AssociationSet>
           <AssociationSet Name="FK_DepartmentInfo_Department" Association="Self.FK_DepartmentInfo_Department">
             <End Role="Department" EntitySet="Department" />
@@ -373,6 +440,10 @@
           <AssociationSet Name="FK_Student_Users" Association="Self.FK_Student_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaction_Users" Association="Self.FK_Transaction_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
           <AssociationSet Name="FK_UserImage_Users" Association="Self.FK_UserImage_Users">
             <End Role="Users" EntitySet="Users" />
@@ -518,6 +589,7 @@
           <NavigationProperty Name="UsersRoles" Relationship="JustHallAtumationModel.FK_UsersRole_Users" FromRole="User" ToRole="UsersRole" />
           <NavigationProperty Name="Account" Relationship="JustHallAtumationModel.FK_Account_Users" FromRole="User" ToRole="Account" />
           <NavigationProperty Name="UserImages" Relationship="JustHallAtumationModel.FK_UserImage_Users" FromRole="User" ToRole="UserImage" />
+          <NavigationProperty Name="Transactions" Relationship="JustHallAtumationModel.FK_Transaction_Users" FromRole="User" ToRole="Transaction" />
         </EntityType>
         <Association Name="FK_Address_District">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
@@ -694,6 +766,18 @@
           <EntitySet Name="RegistrationForms" EntityType="JustHallAtumationModel.RegistrationForm" />
           <EntitySet Name="Searches" EntityType="JustHallAtumationModel.Search" />
           <EntitySet Name="Files" EntityType="JustHallAtumationModel.File" />
+          <EntitySet Name="AdminRegistrionPasswords" EntityType="JustHallAtumationModel.AdminRegistrionPassword" />
+          <EntitySet Name="AllMealAdmins" EntityType="JustHallAtumationModel.AllMealAdmin" />
+          <EntitySet Name="MealAdminRegs" EntityType="JustHallAtumationModel.MealAdminReg" />
+          <AssociationSet Name="FK_AllMealAdmins_AllMealAdmins" Association="JustHallAtumationModel.FK_AllMealAdmins_AllMealAdmins">
+            <End Role="MealAdminReg" EntitySet="MealAdminRegs" />
+            <End Role="AllMealAdmin" EntitySet="AllMealAdmins" />
+          </AssociationSet>
+          <EntitySet Name="Transactions" EntityType="JustHallAtumationModel.Transaction" />
+          <AssociationSet Name="FK_Transaction_Users" Association="JustHallAtumationModel.FK_Transaction_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="UsersRole">
           <Key>
@@ -789,6 +873,68 @@
           <Property Name="FileTitle" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="AdminRegistrionPassword">
+          <Key>
+            <PropertyRef Name="RegistraionId" />
+          </Key>
+          <Property Name="RegistraionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdminRegPass" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AllMealAdmin">
+          <Key>
+            <PropertyRef Name="MealAdminsId" />
+          </Key>
+          <Property Name="MealAdminsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MealAdminRegId" Type="Int32" />
+          <NavigationProperty Name="MealAdminReg" Relationship="JustHallAtumationModel.FK_AllMealAdmins_AllMealAdmins" FromRole="AllMealAdmin" ToRole="MealAdminReg" />
+        </EntityType>
+        <EntityType Name="MealAdminReg">
+          <Key>
+            <PropertyRef Name="MealAdminRegId" />
+          </Key>
+          <Property Name="MealAdminRegId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AllMealAdmin" Relationship="JustHallAtumationModel.FK_AllMealAdmins_AllMealAdmins" FromRole="MealAdminReg" ToRole="AllMealAdmin" />
+          <Property Name="Flag" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_AllMealAdmins_AllMealAdmins">
+          <End Type="JustHallAtumationModel.MealAdminReg" Role="MealAdminReg" Multiplicity="1" />
+          <End Type="JustHallAtumationModel.AllMealAdmin" Role="AllMealAdmin" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="MealAdminReg">
+              <PropertyRef Name="MealAdminRegId" />
+            </Principal>
+            <Dependent Role="AllMealAdmin">
+              <PropertyRef Name="MealAdminsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionId" />
+          </Key>
+          <Property Name="TransactionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Balance" Type="Int32" />
+          <Property Name="AddedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="JustHallAtumationModel.FK_Transaction_Users" FromRole="Transaction" ToRole="User" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_Transaction_Users">
+          <End Type="JustHallAtumationModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="JustHallAtumationModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -976,6 +1122,45 @@
                 <ScalarProperty Name="FileContent" ColumnName="FileContent" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
                 <ScalarProperty Name="FileId" ColumnName="FileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminRegistrionPasswords">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.AdminRegistrionPassword">
+              <MappingFragment StoreEntitySet="AdminRegistrionPassword">
+                <ScalarProperty Name="AdminRegPass" ColumnName="AdminRegPass" />
+                <ScalarProperty Name="RegistraionId" ColumnName="RegistraionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AllMealAdmins">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.AllMealAdmin">
+              <MappingFragment StoreEntitySet="AllMealAdmins">
+                <ScalarProperty Name="MealAdminRegId" ColumnName="MealAdminRegId" />
+                <ScalarProperty Name="MealAdminsId" ColumnName="MealAdminsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MealAdminRegs">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.MealAdminReg">
+              <MappingFragment StoreEntitySet="MealAdminReg">
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MealAdminRegId" ColumnName="MealAdminRegId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="JustHallAtumationModel.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

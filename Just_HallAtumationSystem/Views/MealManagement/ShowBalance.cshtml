@@ -6,10 +6,10 @@
 
 
 
-<div>
-    <h4>Account Balance</h4>
-    <hr />
-    <dl class="dl-horizontal">
+<div class="container mt-5">
+    <h4 class="text-info" >Account Balance</h4>
+    
+    <dl >
         @*<dt>
             @Html.DisplayNameFor(model => model.UserId)
         </dt>
@@ -18,13 +18,10 @@
             @Html.DisplayFor(model => model.UserId)
         </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Balance)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Balance)
+            <span >Your account balance is <b> @Html.DisplayFor(model => model.Balance) TK.</b></span>
         </dd>
+
 
     </dl>
 </div>

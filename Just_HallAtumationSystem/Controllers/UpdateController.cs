@@ -10,10 +10,35 @@ using System.Net;
 
 namespace Just_HallAtumationSystem.Controllers
 {
+    [Authorize]
     public class UpdateController : Controller
     {
         // GET: Update
         UpdateOperation updateOperation = new UpdateOperation();
+        SearchOperation searchOperation = new SearchOperation();
+        [Authorize(Roles = "Admin")]
+        public ActionResult UpdateList(string UserName)
+        {
+            try
+            {
+                var studentList = searchOperation.GetStudentList();
+                if (UserName == null)
+                {
+                    return View(studentList);
+                }
+                else
+                {
+                    var res = studentList.Where(x => x.user.UserName.Replace(" ", "") == UserName.Replace(" ", "")).ToList();
+                    return View(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateStudentInfo(int? Id) // Student Id
         {
             try
@@ -36,12 +61,13 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(studentUpdateModel);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult UpdateStudentInfo(StudentUpdateModel model)
         {
@@ -60,22 +86,26 @@ namespace Just_HallAtumationSystem.Controllers
                         ViewBag.Success = "Failed!";
                     }
                 }
-                return RedirectToAction("StudentList", "ShowDetails");
+                return RedirectToAction("Studentslist", "ShowDetails");
 
             }
-             catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
         }
 
         //Update Address Information
-
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateAddressInfo(int? id) // Student Id
         {
             try
             {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 AddressInfoModel addressInfoModel = new AddressInfoModel();
                 addressInfoModel.StudentId = (int)id;
                 using (var context = new JustHallAtumationEntities())
@@ -91,13 +121,14 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(addressInfoModel);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateAddressInfo(AddressInfoModel model)
         {
             try
@@ -115,20 +146,25 @@ namespace Just_HallAtumationSystem.Controllers
                         ViewBag.Success = "Failed!";
                     }
                 }
-                return RedirectToAction("StudentList", "ShowDetails");
+                return RedirectToAction("Studentslist", "ShowDetails");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
 
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult UpdateDepartmentInfo(int? id)
         {
             try
             {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 DepartMentWithDeptName departmentInfoModel = new DepartMentWithDeptName();
                 departmentInfoModel.StudentId = (int)id;
                 using (var context = new JustHallAtumationEntities())
@@ -141,13 +177,14 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(departmentInfoModel);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
 
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult UpdateDepartmentInfo(DepartMentWithDeptName model)
         {
@@ -166,14 +203,14 @@ namespace Just_HallAtumationSystem.Controllers
                         ViewBag.Success = "Failed!";
                     }
                 }
-                return RedirectToAction("StudentList", "ShowDetails");
+                return RedirectToAction("Studentslist", "ShowDetails");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View(ex);
             }
-            
+
         }
     }
 }

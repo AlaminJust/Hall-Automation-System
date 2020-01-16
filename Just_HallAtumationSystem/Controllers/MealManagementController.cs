@@ -54,7 +54,7 @@ namespace Just_HallAtumationSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                int id = mealManagementOperation.AddBalance(model);
+                int id = mealManagementOperation.AddBalance(model, User.Identity.Name);
                 if(id > 0)
                 {
                     ViewBag.Success = "Balance Added!";
@@ -67,9 +67,10 @@ namespace Just_HallAtumationSystem.Controllers
             }
             return RedirectToAction("AllAcount");
         }
-       // [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
 
         // Show Balance of Specific User
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult ShowBalance(int? Id) // UserId
         {
             try
@@ -95,7 +96,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult AddMeal() // User Id
         {
             try
@@ -106,8 +107,8 @@ namespace Just_HallAtumationSystem.Controllers
             {
                 return View(ex);
             }
-            
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         [HttpPost]
         public ActionResult AddMeal(Meal model)
         {
@@ -129,6 +130,10 @@ namespace Just_HallAtumationSystem.Controllers
                     {
                         ViewBag.Success = "Meal Already has been given. You can update it!";
                     }
+                    else if(id == -5)
+                    {
+                        ViewBag.Success = "All Information must feel up before add the meals!";
+                    }
                     else if(id > 0)
                     {
                         ViewBag.Success = "Meal successfully given!";
@@ -148,6 +153,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
         // To Update Meal
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult UpdateMeal()
         {
             try
@@ -158,6 +164,11 @@ namespace Just_HallAtumationSystem.Controllers
                 {
                     var user = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
                     var student = context.Students.Where(x => x.UserId == user.UserId).FirstOrDefault();
+                    if(student == null)
+                    {
+                        ViewBag.Success = "All Information must feel before add the meals!";
+                        return View();
+                    }
                     meal = context.Meals.Where(x => x.Date == DateTime.Today.Date && x.StudentId == student.StudentId).FirstOrDefault();
                 }
 
@@ -170,6 +181,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult UpdateMeal(Meal Model)
         {
             try
@@ -188,6 +200,10 @@ namespace Just_HallAtumationSystem.Controllers
                     else if (id == -3)
                     {
                         ViewBag.Success = "Insufficient Balance!";
+                    }
+                    else if(id == -5)
+                    {
+                        ViewBag.Success = "Sorry, Still your all information didn't fill up. Plaease fill up your information!";
                     }
                     else if (id > 0)
                     {
@@ -208,6 +224,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
         // To Add MealRate
+        [Authorize(Roles = "MealAdmin")]
         public ActionResult AddMealRate()
         {
             try
@@ -221,6 +238,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "MealAdmin")]
         public ActionResult AddMealRate(MealCost model)
         {
             try
@@ -247,6 +265,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         // To MealRate
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult ShowMealRate()
         {
             try
@@ -263,9 +282,33 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
+        public ActionResult ShowTransaction()
+        {
+            try
+            {
+                using(var context = new JustHallAtumationEntities())
+                {
+                    var user = context.Users.Where(x => x.UserName.Replace(" ", "") == User.Identity.Name.Replace(" ", "")).FirstOrDefault();
+                    if(user == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    else
+                    {
+                        var result = context.Transactions.Where(x => x.UserId == user.UserId).ToList();
+                        return View(result);
+                    }
+                    
+                }
+                
 
+            }catch(Exception ex)
+            {
+                return View(ex);
+            }
+        }
         // Show Meal Today MealList
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult ShowTodayAllMeal()
         {
             try

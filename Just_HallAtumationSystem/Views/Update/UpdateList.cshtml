@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MyApp.Models.StudentListModel>
+
+@{
+    ViewBag.Title = "UpdateList";
+}
+
+@using (Html.BeginForm("UpdateList", "Update", FormMethod.Get))
+{
+    <div class="input-group justify-content-lg-start mt-3 mb-2">
+        @Html.TextBox("UserName", null, new { @class = "form-control", @placeholder = "Username" })
+        <span class="input-group-btn">
+            <input type="submit" class="btn btn-secondary" value="Search">
+        </span>
+    </div>
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Student Name
+        </th>
+        <th>
+            Department
+        </th>
+        <th>
+            Session
+        </th>
+        <th>
+            Student Info Update
+        </th>
+        <th>
+            Department Info Update
+        </th>
+        <th>
+            Address Info Update
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.student.StudentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.department.DeptName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.departmentInfo.Session)
+            </td>
+            <td>
+                @Html.ActionLink("Student", "UpdateStudentInfo", new { id = item.student.StudentId })
+            </td>
+            <td>
+                @Html.ActionLink("Department", "UpdateDepartmentInfo", new { id = item.student.StudentId })
+            </td>
+            <td>
+                @Html.ActionLink("Address", "UpdateAddressInfo", new { id = item.student.StudentId })
+            </td>
+        </tr>
+    }
+
+</table>

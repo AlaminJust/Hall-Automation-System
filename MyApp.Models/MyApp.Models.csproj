@@ -59,7 +59,15 @@
     </Compile>
     <Compile Include="AddressInfoModel.cs" />
     <Compile Include="AddressModel.cs" />
+    <Compile Include="AdminProfile.cs" />
+    <Compile Include="AdminRegistraionModel.cs" />
+    <Compile Include="AdminRegistrionPassword.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="AllAccountsModel.cs" />
+    <Compile Include="AllMealAdmin.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="changePasswordModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Communication.cs">
@@ -85,6 +93,9 @@
     <Compile Include="Meal.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="MealAdminReg.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="MealCost.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -106,6 +117,7 @@
     <Compile Include="NoticeBoard.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="NoticeWithRegistrationForm.cs" />
     <Compile Include="Preference.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -118,6 +130,7 @@
     <Compile Include="Room.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="roomGroup.cs" />
     <Compile Include="Search.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -127,6 +140,9 @@
     </Compile>
     <Compile Include="StudentInfoModel.cs" />
     <Compile Include="StudentListModel.cs" />
+    <Compile Include="Transaction.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -43,5 +43,9 @@ namespace MyApp.Models
         public virtual DbSet<RegistrationForm> RegistrationForms { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<AdminRegistrionPassword> AdminRegistrionPasswords { get; set; }
+        public virtual DbSet<AllMealAdmin> AllMealAdmins { get; set; }
+        public virtual DbSet<MealAdminReg> MealAdminRegs { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
     }
 }

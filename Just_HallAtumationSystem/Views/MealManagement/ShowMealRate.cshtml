@@ -5,16 +5,13 @@
 }*@
 
 
-<div>
-    <h4>Meal Rate</h4>
+<div class="container mt-5">
+    <h4 class="text-info">Meal Rate</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.MealCost1)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.MealCost1)
+            <span>Current meal rate is <b>@Html.DisplayFor(model => model.MealCost1) Tk</b> per meal.</span>
+            
         </dd>
 
     </dl>

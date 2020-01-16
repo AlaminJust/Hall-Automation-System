@@ -15,6 +15,7 @@ namespace Just_HallAtumationSystem.Controllers
     {
         // GET: InsertInformation
         InsertInfoOperation insertInfoOperation = new InsertInfoOperation();
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertRoomInfo() // To insert Room information into Room table
         {
             try
@@ -28,6 +29,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertRoomInfo(Room model)
         {
             try
@@ -54,6 +56,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         // Insert Student Information
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult InsertStudentInfo()
         {
             try
@@ -79,6 +82,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult InsertStudentInfo(StudentInfoModel model)
         {
             try
@@ -106,6 +110,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
         // To Insert Department Name Of New Department 
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertDepartmentName()
         {
             try
@@ -119,6 +124,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertDepartmentName(Department model)
         {
             try
@@ -147,6 +153,7 @@ namespace Just_HallAtumationSystem.Controllers
 
 
         //To Insert Users Department Information
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult InsertUserDepartmentInfo()
         {
             try
@@ -178,6 +185,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult InsertUserDepartmentInfo(DepartmentInfoModel model)
         {
             try
@@ -203,7 +211,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertDistrictName()
         {
             try
@@ -218,6 +226,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
         [HttpPost]
         //Insert districtName
+        [Authorize(Roles = "Admin")]
         public ActionResult InsertDistrictName(District model)
         {
             try
@@ -243,7 +252,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
            
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult InsertAddress()
         {
             try
@@ -277,6 +286,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         [HttpPost]
         public ActionResult InsertAddress(AddressInfoModel model)
         {
@@ -306,7 +316,7 @@ namespace Just_HallAtumationSystem.Controllers
         }
 
         // To Upload Image for User
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult UploadImage()
         {
             try
@@ -321,7 +331,7 @@ namespace Just_HallAtumationSystem.Controllers
             }
             
         }
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         [HttpPost]
         public ActionResult UploadImage(ImageUploadModel img, HttpPostedFileBase file)
 

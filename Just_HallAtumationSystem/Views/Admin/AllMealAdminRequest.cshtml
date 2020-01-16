@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MyApp.Models.MealAdminReg>
+
+
+<table class="table mt-4">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Requested
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @if (item.Flag == 0)
+            {
+
+                <td>@Html.ActionLink("Pending", "AcceptMealAdmin", "Admin", new { id = item.MealAdminRegId }, htmlAttributes: null)</td>
+            }
+            else
+            {
+                <td style="color:gre">Accepted</td>
+            }
+        </tr>
+    }
+
+</table>

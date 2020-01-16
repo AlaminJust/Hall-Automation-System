@@ -9,14 +9,14 @@
         <EntityTypeShape EntityType="JustHallAtumationModel.Communication" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Department" Width="1.5" PointX="9.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.DepartmentInfo" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.District" Width="1.5" PointX="9.5" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.District" Width="1.5" PointX="10.5" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Meal" Width="1.5" PointX="5.125" PointY="12.375" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.MealCost" Width="1.5" PointX="2.5" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.NoticeBoard" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Preference" Width="1.5" PointX="5.125" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.Room" Width="1.5" PointX="2" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.Student" Width="1.5" PointX="6.875" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="JustHallAtumationModel.User" Width="1.5" PointX="4" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Room" Width="1.5" PointX="5.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Student" Width="1.5" PointX="7.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.User" Width="1.5" PointX="3.375" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Address_District" ManuallyRouted="false" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Address_District1" ManuallyRouted="false" />
         <AssociationConnector Association="JustHallAtumationModel.FK_Address_Student" ManuallyRouted="false" />
@@ -35,6 +35,12 @@
         <EntityTypeShape EntityType="JustHallAtumationModel.RegistrationForm" Width="1.5" PointX="6.625" PointY="0.625" />
         <EntityTypeShape EntityType="JustHallAtumationModel.Search" Width="1.5" PointX="0.75" PointY="8.75" />
         <EntityTypeShape EntityType="JustHallAtumationModel.File" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.AdminRegistrionPassword" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.AllMealAdmin" Width="1.5" PointX="14.625" PointY="4.25" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.MealAdminReg" Width="1.5" PointX="12.375" PointY="3.875" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_AllMealAdmins_AllMealAdmins" />
+        <EntityTypeShape EntityType="JustHallAtumationModel.Transaction" Width="1.5" PointX="5.625" PointY="19.125" />
+        <AssociationConnector Association="JustHallAtumationModel.FK_Transaction_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

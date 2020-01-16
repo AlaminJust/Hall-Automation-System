@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MyApp.Models.roomGroup>
+
+
+<table class="table-bordered mt-3 offset-md-3 offset-lg-3 offset-sm-1">
+    @{
+        var result = Model.GroupBy(x => x.roomNumber).OrderBy(x => x.Key);
+        <tr>
+            <th class="p-2">
+                Room Number
+            </th>
+            <th class="p-2">
+                Number of Student
+            </th>
+            <th class="p-2">
+                Total Seat
+            </th>
+            <th class="p-2">
+                Empty Seat
+            </th>
+
+        </tr>
+        foreach (var student in result)
+        {
+            int block = 0;
+            <tr >
+                <td class="p-2">
+                    @student.Key
+                </td>
+                <td class="p-2">
+                    @student.Count()
+                </td>
+                @foreach (var item in student)
+                {
+
+
+                    block = @item.totolSeat;
+
+
+                }
+                <td style="color:chocolate" class="p-2">
+                    @block
+                </td>
+
+                <td class="p-2">
+                    @Math.Max(0,block - student.Count())
+                </td>
+            </tr>
+        }
+    }
+</table>

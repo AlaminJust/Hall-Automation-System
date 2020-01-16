@@ -8,31 +8,47 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<table class="table mt-5 ">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FileTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table mt-5 ">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FileTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
 
-        <th class="col-md-2"></th>
-    </tr>
+                    <th class="col-md-2"></th>
+                </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.ActionLink("Download", "DownLoadFile", new { id = item.FileId} )
-            </td>
-        </tr>
-    }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Download", "DownLoadFile", new { id = item.FileId })
+                        </td>
+                    </tr>
+                }
 
-</table>
+            </table>
+        </div>
+        <div class="col-md-6">
+            
+            <div >
+                
+                
+
+            </div>
+        
+
+        </div>
+    </div>
+</div>

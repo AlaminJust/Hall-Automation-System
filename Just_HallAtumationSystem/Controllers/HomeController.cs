@@ -15,17 +15,32 @@ namespace Just_HallAtumationSystem.Controllers
     {
 
         JustHallAtumationEntities context = new JustHallAtumationEntities();
-
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Index()
         {
-            if(User.Identity.Name!=null)
+            return RedirectToAction("Notices");
+        }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
+        public ActionResult Notices()
+        {
+            try
             {
-                return View();
+                using (var context = new JustHallAtumationEntities())
+                {
+                    NoticeWithRegistrationForm noticeWithRegistrationForm = new NoticeWithRegistrationForm();
+                    noticeWithRegistrationForm.files = context.Files.ToList();
+                    noticeWithRegistrationForm.registrationForms = context.RegistrationForms.Where(x => x.IsVerified == 0 || x.IsVerified == 2).ToList().OrderBy(x => x.IsVerified).ToList();
+                    return View(noticeWithRegistrationForm);
+                }
             }
-            return RedirectToAction("Login", "LoginRegistration");
+            catch(Exception ex)
+            {
+                return View(ex);
+            }
         }
 
         /// To search Everythings
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Search(string Id)
         {
             try
@@ -60,12 +75,12 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(ex);
             }
         }
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult Contact()
         {
             try
             {
-                ViewBag.Message = "Your contact page.";
+                ViewBag.Success = "Your Information Allready added if you find any wrong informatoin go to the Hall admin";
                 return View();
             }
             catch(Exception ex)
@@ -73,6 +88,7 @@ namespace Just_HallAtumationSystem.Controllers
                 return View(ex);
             }
         }
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult SendEmail()
         {
             try
@@ -86,6 +102,7 @@ namespace Just_HallAtumationSystem.Controllers
             
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Student,MealAdmin")]
         public ActionResult SendEmail(string receiver, string subject, string message)
         {
             try
@@ -117,6 +134,5 @@ namespace Just_HallAtumationSystem.Controllers
             }
             return View();
         }
-
     }
 }

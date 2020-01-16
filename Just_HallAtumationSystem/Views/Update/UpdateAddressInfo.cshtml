@@ -12,11 +12,9 @@
     </script>
 }
 
-
-<section class="mt-5">
-    <div class="container">
+    <div class="container mt-3">
         <div class="row">
-            <div class="col-md-8 col-lg-6 col-sm-10 offset-lg-3 offset-md-1">
+            <div class="col-md-6 offset-lg-2 offset-md-1 offset-sm-1">
                 <div class="card">
                     <div class="card-header">
                         <h2 class="display-5 text-center">
@@ -29,7 +27,7 @@
 
                             <div class="form-horizontal">
 
-                                <hr />
+                            
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group" hidden>
                                     @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,7 +39,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.P_DistrictId)
                                         @Html.DropDownListFor(model => model.P_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District", new { @class = "form-control" })
                                     </div>
@@ -49,7 +47,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.P_VillageName)
                                         @Html.EditorFor(model => model.P_VillageName, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.P_VillageName, "", new { @class = "text-danger" })
@@ -58,7 +56,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.P_PostOffice)
                                         @Html.EditorFor(model => model.P_PostOffice, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.P_PostOffice, "", new { @class = "text-danger" })
@@ -67,7 +65,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.T_DistrictId)
                                         @Html.DropDownListFor(model => model.T_DistrictId, new SelectList(Model.districts, "DistrictId", "DistrictName"), "Select District", new { @class = "form-control" })
                                     </div>
@@ -75,7 +73,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.T_VillageName)
                                         @Html.EditorFor(model => model.T_VillageName, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.T_VillageName, "", new { @class = "text-danger" })
@@ -84,7 +82,7 @@
 
                                 <div class="form-group">
 
-                                    <div class="col-md-10 offset-1 offset-lg-2">
+                                    <div class="col-md-10 offset-lg-3 offset-md-1">
                                         @Html.LabelFor(model => model.T_PostOffice)
                                         @Html.EditorFor(model => model.T_PostOffice, new { htmlAttributes = new { @class = "form-control" } })
                                         @Html.ValidationMessageFor(model => model.T_PostOffice, "", new { @class = "text-danger" })
@@ -92,8 +90,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <div class="col-md-10 offset-1 offset-lg-2">
-                                        <input type="submit" value="Create" class="btn btn-success btn-block" />
+                                    <div  class=" col-md-10 offset-md-1 offset-lg-3">
+                                        <input type="submit" value="Submit" class="btn btn-success btn-block" />
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +102,7 @@
             </div>
         </div>
     </div>
-</section>
+
 
 
 

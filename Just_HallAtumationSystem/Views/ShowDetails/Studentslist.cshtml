@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<MyApp.Models.StudentListModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Studentslist";
+}
+<div class="containe">
+
+    <h2 class="mt-3 text-center">Studentslist</h2>
+
+    @using (Html.BeginForm("Studentslist", "ShowDetails", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.ActionLink("Student Name", "Studentslist", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Department", "Studentslist", new { sortOrder = ViewBag.DepartSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Session", "Studentslist", new { sortOrder = ViewBag.SessionSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Room No", "Studentslist", new { sortOrder = ViewBag.RoomNoSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Payment
+            </th>
+            <th>
+                @Html.ActionLink("Hallentry date", "Studentslist", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.student.StudentName, "GetStudentData", "ShowDetails", new { UserName = item.user.UserName }, htmlAttributes: null)
+                </td>
+                <td>
+                    @item.department.DeptName
+                </td>
+                <td>
+                    @item.departmentInfo.Session
+                </td>
+                <td>
+                    @item.room.RoomNumber
+                </td>
+                <td>
+                    @item.student.MobileNumber
+                </td>
+                <td>
+                    Incomplete
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HallEntryDate)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Studentslist",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

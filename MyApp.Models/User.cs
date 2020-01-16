@@ -20,6 +20,7 @@ namespace MyApp.Models
             this.Students = new HashSet<Student>();
             this.UsersRoles = new HashSet<UsersRole>();
             this.UserImages = new HashSet<UserImage>();
+            this.Transactions = new HashSet<Transaction>();
         }
     
         public int UserId { get; set; }
@@ -34,5 +35,7 @@ namespace MyApp.Models
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserImage> UserImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }
