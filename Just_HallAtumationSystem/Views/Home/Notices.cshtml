@@ -4,115 +4,141 @@
     ViewBag.Title = "Notices";
 }
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-sm-12">
-            <h2 class="text-center mt-3">Notices</h2>
+<!-- <div class="container"> -->
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        <h2 class="text-center mt-3">Notices</h2>
 
-            <table class="table mt-2 table-bordered">
-                <tr>
-                    <th>
-                        Notices title
-                    </th>
-                    <th>
-                        Publish Date
-                    </th>
+        <table class="table table-striped table-dark mt-2 text-center">
+            <tr>
+                <th>
+                    Notices title
+                </th>
+                <th>
+                    Publish Date
+                </th>
 
-                    <th class="col-md-2"> Download link</th>
-                </tr>
+                <th class="col-md-2"> Download link</th>
+            </tr>
 
-                @foreach (var item in Model.files)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FileTitle)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Download", "DownLoadFile", "File", new { id = item.FileId }, htmlAttributes: null)
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </div>
-
-        <div class="col-md-8 col-sm-12">
-            @if (User.IsInRole("Admin"))
+            @foreach (var item in Model.files)
             {
-                <div>
-                    <h2 class="text-center mt-3">Pending Users</h2>
-                    <table class="table table-bordered text-lg-left border-info">
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Download", "DownLoadFile", "File", new { id = item.FileId }, htmlAttributes: null)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        @*<table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Notices title</th>
+                        <th scope="col">Publish Date</th>
+                        <th scope="col">Download link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.files)
+                    {
                         <tr>
-                            <th>
-
-                                Username
-                            </th>
-                            <th>
-
-                                Studentname
-                            </th>
-                            <th>
-
-                                Deptment
-                            </th>
-                            <th>
-
-                                Roll
-                            </th>
-                            <th>
-
-                                Session
-                            </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.Password)
-                                </th>*@
-                            <th>
-
-                                Email
-                            </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.IsVerified)
-                                </th>*@
-                            <th>
-                                Request
-                            </th>
-                         
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FileTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Download", "DownLoadFile", "File", new { id = item.FileId }, htmlAttributes: null)
+                            </td>
                         </tr>
+                    }
+                </tbody>
+            </table>*@
+    </div>
 
-                        @foreach (var item in Model.registrationForms)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.StudentName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DeptName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RollNumber)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Session)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.Password)
-                                    </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
-                                </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.IsVerified)
-                                    </td>*@
+    <div class="col-md-8 col-sm-12">
+        @if (User.IsInRole("Admin"))
+        {
+            <div>
+                <h2 class="text-center mt-3">Pending Users</h2>
+                <table class="table table-bordered text-lg-left border-info">
+                    <tr>
+                        <th>
+
+                            Username
+                        </th>
+                        <th>
+
+                            Studentname
+                        </th>
+                        <th>
+
+                            Deptment
+                        </th>
+                        <th>
+
+                            Roll
+                        </th>
+                        <th>
+
+                            Session
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.Password)
+                            </th>*@
+                        <th>
+
+                            Email
+                        </th>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.IsVerified)
+                            </th>*@
+                        <th>
+                            Request
+                        </th>
+
+                    </tr>
+
+                    @foreach (var item in Model.registrationForms)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DeptName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RollNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Session)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.Password)
+                                </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.IsVerified)
+                                </td>*@
                             <td>
                                 @if (item.IsVerified == 0)
                                 {
-                                <span>@Html.ActionLink("Pending", "ActivateTheUser", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null) | </span>
+                                    <span>@Html.ActionLink("Pending", "ActivateTheUser", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null) | </span>
                                     @Html.ActionLink("Update", "UpdateRegistraionForm", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null)
 
                                 }
@@ -122,13 +148,12 @@
                                     @Html.ActionLink("Update", "UpdateRegistraionForm", "LoginRegistration", new { id = item.RegistrationId }, htmlAttributes: null)
                                 }
                             </td>
-                            </tr>
-                        }
+                        </tr>
+                    }
 
-                    </table>
+                </table>
 
-                </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 </div>

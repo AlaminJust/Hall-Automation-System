@@ -115,6 +115,16 @@ namespace Just_HallAtumationSystem.Controllers
             try
             {
                 string UserName = User.Identity.Name;
+                if (Math.Min(model.Dinnar, model.Lunch) < 0)
+                {
+                    ViewBag.Success = "Please select positive number";
+                    return View();
+                }
+                else if (Math.Max(model.Lunch, model.Dinnar) == 0)
+                {
+                    ViewBag.Success = "Select Atleast 1 meals";
+                    return View();
+                }
                 if (ModelState.IsValid)
                 {
                     int id = mealManagementOperation.AddMeal(model, UserName);
@@ -186,6 +196,11 @@ namespace Just_HallAtumationSystem.Controllers
         {
             try
             {
+                if (Math.Min(Model.Dinnar, Model.Lunch) < 0)
+                {
+                    ViewBag.Success = "Please select positive number";
+                    return View();
+                }
                 if (ModelState.IsValid)
                 {
                     int id = mealManagementOperation.Update(Model, User.Identity.Name);
